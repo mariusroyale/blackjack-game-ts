@@ -30,8 +30,7 @@ export class Blackjack {
     }
 
     private shuffleDeck(): void {
-
-        let deck = this.deck;
+        const deck = this.deck;
 
          // modified set
          for (let i =  deck.length - 1; i > 0; i--) {
@@ -64,72 +63,69 @@ export class Blackjack {
 
     public startGame(): void {
         this.dealInitialCards();
-        this.gameActiveStatus = true;
+        this.playerTurn();
+        this.dealerTurn();
+        
+        // if no blackjack won, compare the hands
+        const playerPoints: number = this.calculateCardPoints(this.player.getHand());
+        const dealerPoints: number = this.calculateCardPoints(this.dealer.getHand());
 
-        // initial player hand
+        if (playerPoints > dealerPoints && playerPoints <= 21) {
+            console.log(`${this.player.getName()} wins!`);    
+        } else if (playerPoints < dealerPoints && dealerPoints <= 21) {
+            console.log(`${this.dealer.getName()} wins!`);
+        } else if (playerPoints  === dealerPoints) {
+            console.log('Draw!');
+        }
+    }
+
+    private playerTurn(): void {
+        this.gameActiveStatus = true;
+        console.log(this.player.getName() + '\'s turn');
         // show player hand
         this.showPlayerHand();
-        console.log('Player turn');
 
         // player turn
         while (this.gameActiveStatus) {
             if (this.validateHandOfCards(this.player.getHand())) {
                 // ask player to hit or stand
-                let input: string = readlineSync.question('Would you like to draw another card? (y/n): ');
+                let input: string = readlineSync.question('Would you like to (h)hit or (s)stand? : ');
             
-                if (input === 'y') {
-                    // hit
+                if (input === 'h') {
+                    // player hits
                     this.player.addCard(this.deck.pop()!);
                     this.showPlayerHand();
                 } else {
-                    // stand
+                    // player stands
                     this.gameActiveStatus = false;
                 }
             } else {
                 // game is finished or player turn
-                // new player hand
                 this.gameActiveStatus = false;
-                this.showPlayerHand();
             }          
         }
+    }
 
+    private dealerTurn(): void {
         this.gameActiveStatus = true;
+        console.log(this.dealer.getName() + '\'s turn');
         this.showDealerHand();
-        console.log('Dealer turn');
 
         // dealer turn
         while (this.gameActiveStatus) {
-
             if (this.validateHandOfCards(this.dealer.getHand())) {
-
                 let dealerPoints: number = this.calculateCardPoints(this.dealer.getHand());
                 let percentChance: number = 0;
 
-                // 10 = 100% -> 21 - 10 = 11
-                // 11 = 90%  -> 21 - 11 = 10
-                // 12 = 80% -> 21 - 12 = 9
-                // 13 = 70%
-                // 14 = 60% 
-                // 15 = 50% 
-                // 16 = 40%         
-                // 17 = 30%
-                // 18 = 20%             
-                // 19 = 10%
-                // > 19 = 0%
-
-                if (dealerPoints < 19 && dealerPoints > 10) {
+                if (dealerPoints < 10) {
+                    percentChance = 100;
+                } else if (dealerPoints < 19 && dealerPoints > 10) {
                     percentChance = (21 - dealerPoints - 1) * 10;
                 }
 
-                if (dealerPoints < 10) {
-                    percentChance = 100;
-                }
-
                 console.log(`Dealer points: ${dealerPoints}`);
-
                 console.log(`Dealer chance to hit: ${percentChance}%`);
                 let randomChance: number = Math.floor(Math.random() * 100);
-
                 console.log(`Random chance: ${randomChance}`);
 
                 if (percentChance > randomChance) {
@@ -137,26 +133,13 @@ export class Blackjack {
                     this.dealer.addCard(this.deck.pop()!);
                     this.showDealerHand();
                 } else {
-                    // game is finished or dealer turn
+                    // dealer stands
                     this.gameActiveStatus = false;
                 }
             } else {
                 // game is finished or dealer turn
                 this.gameActiveStatus = false;
-                this.showDealerHand();
             }
-        }
-
-        // if no blackjack won, compare the hands
-        let playerPoints: number = this.calculateCardPoints(this.player.getHand());
-        let dealerPoints: number = this.calculateCardPoints(this.dealer.getHand());
-
-        if (playerPoints > dealerPoints && playerPoints <= 21) {
-            console.log(`${this.player.getName()} wins!`);    
-        } else if (playerPoints < dealerPoints && dealerPoints <= 21) {
-            console.log(`${this.dealer.getName()} wins!`);
-        } else if (playerPoints === 21 && dealerPoints === 21) {
-            console.log('Draw!');
         }
     }
 
@@ -169,7 +152,7 @@ export class Blackjack {
     }
 
     private validateHandOfCards(cards: ICard[]): boolean {
-        let points = this.calculateCardPoints(cards);
+        const points = this.calculateCardPoints(cards);
 
         if (points > 21 ) {
             console.log('BUST!');
@@ -195,8 +178,4 @@ export class Blackjack {
 
         return points;
     }
-
-
-    // actions possible Hit or Stand
-
 }
