@@ -14,13 +14,13 @@ A lightweight, server-side Blackjack game API built with **TypeScript** and **Ex
 - 📦 Clean project structure (services, models, routes)
 - ✍️ Written entirely in **TypeScript**
 
-### Planned Feature 🚧
+### 🚧 Planned Feature
 
 - **Betting system**: In future versions, players will be able to place bets and manage balances.
 
 ---
 
-## Blackjack Rules ♠️
+## ♠️ Blackjack Rules
 
 The game follows the basic rules of Blackjack:
 
