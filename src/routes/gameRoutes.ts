@@ -9,7 +9,6 @@ gameRoutes.get('/game/:id', (req: Request, res: Response) => {
     const { id } = req.params;
 
     // todo: get game state from Game Service
-
     const game = false;
 
     if (!game) {
@@ -58,7 +57,7 @@ gameRoutes.post('/game/:id/hit', (req: Request, res: Response) => {
         res.json({ gameId, state });
     } catch (error) {
         console.log(error); // implement logging
-        res.status(400).json({ message: 'Error: ' + error });
+        res.status(400).json({ message: error });
     }
 });
 
@@ -75,7 +74,7 @@ gameRoutes.post('/game/:id/stand', (req: Request, res: Response) => {
         res.json({});
     } catch (error) {
         console.log(error); // implement logging
-        res.status(400).json({ message: 'Error: ' + error });
+        res.status(400).json({ message: error });
     }
 });
 

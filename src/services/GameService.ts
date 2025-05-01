@@ -1,14 +1,14 @@
 import { IGameService } from "../interfaces/GameService";
 import { IGameState } from "../interfaces/GameState";
-import { Game } from "../models/Game";
+import { Blackjack } from "../models/Blackjack";
 import { Player } from "../models/Player";
 import { PlayerType } from "../interfaces/Player";
 
 export class GameService implements IGameService {
-    private games = new Map<string, Game>();
+    private games = new Map<string, Blackjack>();
 
     public createGame(playersData: { playerName: string, type: PlayerType }[]): { gameId: string; state: IGameState } {
-        const game = new Game();
+        const game = new Blackjack();
         const gameId = game.getGameId();
 
         // adding players
@@ -31,7 +31,7 @@ export class GameService implements IGameService {
         console.log(this.games);
 
         return {
-            gameId,
+            gameId: gameId,
             state: game.getState()
         };
     }
@@ -44,9 +44,9 @@ export class GameService implements IGameService {
         }
 
         return {
-            gameId,
+            gameId: gameId,
             state: game.getState()
-        }
+        };
     }
 
     public actionHit(gameId: string, playerData: { playerName: string, type: PlayerType }): { gameId: string; state: IGameState } | null {
@@ -74,9 +74,9 @@ export class GameService implements IGameService {
         game.setTurn(game.turn === 'player' ? 'dealer' : 'player');
 
         return {
-            gameId,
+            gameId: gameId,
             state: game.getState()
-        }
+        };
     }
 
     public actionStand(gameId: string): { gameId: string; state: IGameState } | null {
@@ -89,8 +89,8 @@ export class GameService implements IGameService {
         // do the action
 
         return {
-            gameId,
+            gameId: gameId,
             state: game.getState()
-        }
+        };
     }
 }
