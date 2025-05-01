@@ -73,9 +73,6 @@ export class GameService implements IGameService {
         // update the turn
         game.setTurn(game.turn === 'player' ? 'dealer' : 'player');
 
-        // save the game state
-        this.games.set(gameId, game);
-
         return {
             gameId,
             state: game.getState()
