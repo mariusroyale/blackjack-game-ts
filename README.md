@@ -246,6 +246,57 @@ Player ends their turn; the dealer will automatically play.
 
 ---
 
+### 🤚 Stand
+
+**GET** `/api/game/:id`  
+Get an existing instance of a game by id. Refer to `/api/game/startGame` for obtaining the game id.
+
+#### Request Body
+```json
+
+```
+
+#### Response
+```json
+{
+    "gameId": "88cfde81-b9a9-4167-a23c-9237a7669a7c",
+    "state": {
+        "gameId": "88cfde81-b9a9-4167-a23c-9237a7669a7c",
+        "players": [
+            {
+                "name": "Marius",
+                "type": "player",
+                "hand": [
+                    {
+                        "suit": "Clubs",
+                        "rank": "Queen"
+                    },
+                    {
+                        "suit": "Diamonds",
+                        "rank": "2"
+                    }
+                ]
+            },
+            {
+                "name": "Ace Bot Dealer",
+                "type": "dealer",
+                "hand": [
+                    {
+                        "suit": "Diamonds",
+                        "rank": "7"
+                    }
+                ]
+            }
+        ],
+        "deckSize": 49,
+        "turn": "player",
+        "gameStatus": "active"
+    }
+}
+```
+
+---
+
 ## 🧪 Example cURL to create a game
 
 ```bash
