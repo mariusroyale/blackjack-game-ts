@@ -27,9 +27,9 @@ A lightweight, server-side Blackjack game API built with **TypeScript** and **Ex
 
 | Tool        | Version   |
 |-------------|-----------|
-| TypeScript  | ^5.4.5    |
-| Express     | ^4.18.2   |
-| Node        | ^18.x     |
+| TypeScript  | ^5.8.x    |
+| Express     | ^5.1.x    |
+| Node        | ^22.x     |
 
 ---
 
