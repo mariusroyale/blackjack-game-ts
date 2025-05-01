@@ -14,6 +14,30 @@ A lightweight, server-side Blackjack game API built with **TypeScript** and **Ex
 - 📦 Clean project structure (services, models, routes)
 - ✍️ Written entirely in **TypeScript**
 
+### Planned Feature 🚧
+
+- **Betting system**: In future versions, players will be able to place bets and manage balances.
+
+---
+
+## Blackjack Rules ♠️
+
+The game follows the basic rules of Blackjack:
+
+- **Card Values**:
+  - Number cards are worth their face value.
+  - Face cards (Jack, Queen, King) are worth 10.
+  - Aces are worth either 1 or 11, depending on which is more advantageous.
+  
+- **Gameplay**:
+  - Players aim to get as close to 21 as possible without going over.
+  - Players can choose to "hit" (take another card) or "stand" (stop their turn).
+  - The dealer must hit until their total is at least 17.
+  - Players win if their hand is closer to or equal to 21 than the dealer's without exceeding 21.
+  - A hand that has 21 is refered to as `Blackjack`, or a win
+  - If players have gone over 21 it is refered to as `Bust`, or a loss
+  - If players have equal points, including 21 v 21, it is refered to as `Draw`
+
 ---
 
 ## ⚙️ Requirements
