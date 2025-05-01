@@ -3,7 +3,6 @@ import { IPlayer } from '../interfaces/Player';
 import { PlayerType } from '../interfaces/Player';
 
 export class Player implements IPlayer {
-
     public name: string;
     public hand: ICard[];
     public type: PlayerType;
@@ -16,6 +15,10 @@ export class Player implements IPlayer {
 
     public getName(): string {
         return this.name;
+    }
+
+    public getType(): PlayerType {
+        return this.type;
     }
 
     public getHand(): ICard[] {

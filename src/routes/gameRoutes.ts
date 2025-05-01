@@ -1,72 +1,81 @@
-import express from 'express';
-
-// todo: add Game Service
+import express, { Request, Response } from 'express';
+import { GameService } from '../services/GameService';
 
 const gameRoutes = express.Router();
+// We place GameService here because we want to persist to memory the games map data
+const gameService = new GameService(); 
 
-gameRoutes.get('/game/:gameId', (req, res) => {
-    const { gameId } = req.params;
+gameRoutes.get('/game/:id', (req: Request, res: Response) => {
+    const { id } = req.params;
 
     // todo: get game state from Game Service
 
     const game = false;
 
     if (!game) {
-        res.status(404).json({ message: 'Game not found with id: ' + gameId });
+        res.status(404).json({ message: 'Game not found with id: ' + id });
         return;
     }
     
     res.json({});
 });
 
-gameRoutes.post('/game/startGame', (req, res) => {
+gameRoutes.post('/game/startGame', (req: Request, res: Response) => {
     const { playerData } = req.body;
 
-    // todo: start game with Game Service
+    if (!playerData) {
+        res.status(400).json({ message: 'Bad request, missing player data' });
+        return;
+    }
 
-    // const { gameId, gameState } GameService.createGame(playerData);
-
-    // todo:can do some validation such as does the player data have names and types
-
-    const gameId = '123';
-    const gameState = 'active';
-
-    res.json({ gameId, gameState });
+    try {
+        const { gameId, state } = gameService.createGame(playerData);
+        res.json({ gameId, state });
+    } catch (error) {
+        console.error('Error starting the game:', error);
+        res.status(500).json({ error: 'Failed to start the game.' });
+    }
 });
 
-gameRoutes.post('/game/:gameId/hit', (req, res) => {
+gameRoutes.post('/game/:id/hit', (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { playerData } = req.body;
+
+    if (!playerData) {
+        res.status(400).json({ message: 'Bad request, missing player data' });
+        return;
+    } 
+
     try {
-        const { gameId } = req.params;
-        const { actorData } = req.body;
+        const game = gameService.actionHit(id, playerData[0]);
+
+        if (!game) {
+            res.status(404).json({ message: 'Game not found with id: ' + id });
+            return;
+        }
+
+        const { gameId, state } = game;
+        res.json({ gameId, state });
+    } catch (error) {
+        console.log(error); // implement logging
+        res.status(400).json({ message: 'Error: ' + error });
+    }
+});
+
+gameRoutes.post('/game/:id/stand', (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { playerData } = req.body;
 
         // todo: validate which actor turn it is, that is the player or the dealer
         // todo:validate game state / id
         // todo: end game with Game Service
-        // GameService.hit(gameId, actorData);
+        // GameService.hit(id, actorData);
 
         res.json({});
     } catch (error) {
         console.log(error); // implement logging
-        res.status(400).json({ message: 'Bad request' });
-        return;
-    }
-});
-
-gameRoutes.post('/game/:gameId/stand', (req, res) => {
-    try {
-        const { gameId } = req.params;
-        const { actorData } = req.body;
-
-        // todo: validate which actor turn it is, that is the player or the dealer
-        // todo:validate game state / id
-        // todo: end game with Game Service
-        // GameService.hit(gameId, actorData);
-
-        res.json({});
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({ message: 'Bad request' });
-        return;
+        res.status(400).json({ message: 'Error: ' + error });
     }
 });
 

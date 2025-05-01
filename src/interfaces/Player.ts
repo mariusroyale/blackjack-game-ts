@@ -7,6 +7,7 @@ export interface IPlayer {
     hand: ICard[];
     type: PlayerType;
     getName(): string;
+    getType(): PlayerType;
     getHand(): ICard[];
     addCard(card: ICard): void;
 }
