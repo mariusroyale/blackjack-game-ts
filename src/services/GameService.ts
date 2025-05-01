@@ -17,24 +17,3 @@ export class GameService {
         return this.games.get(gameId);
     }
 }
-
-const gameService = new GameService();
-
-
-let gameId1 = gameService.createGame();
-console.log(gameId1);
-
-let gameId2 = gameService.createGame();
-console.log(gameId2);
-
-let gameId3 = gameService.createGame();
-console.log(gameId3);
-
-
-console.log(gameService.getGame(gameId1));
-console.log(gameService.getGame(gameId2));
-console.log(gameService.getGame(gameId3));
-
-
-
-
