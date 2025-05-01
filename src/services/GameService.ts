@@ -56,6 +56,11 @@ export class GameService implements IGameService {
             throw new Error('Game not found');
         }
 
+        // check if game is active
+        if (game.gameStatus !== 'active') {
+            throw new Error('Game is not active');
+        }
+
         if (game.turn !==  playerData.type) {
             throw new Error('Not player turn');
         }
@@ -73,17 +78,31 @@ export class GameService implements IGameService {
         // update the turn
         game.setTurn(game.turn === 'player' ? 'dealer' : 'player');
 
+        // update game stats
+        game.updatePlayerScore(player);
+        game.incrementTurnsPlayed();
+
         return {
             gameId: gameId,
             state: game.getState()
         };
     }
 
-    public actionStand(gameId: string): { gameId: string; state: IGameState } | null {
+    public actionStand(gameId: string, playerData: { playerName: string, type: PlayerType }): { gameId: string; state: IGameState } | null {
         const game = this.games.get(gameId);
         
         if (!game) {
             throw new Error('Game not found');
+        }
+
+        // check if game is active
+        if (game.gameStatus !== 'active') {
+            throw new Error('Game is not active');
+        }
+
+        // validate game state to be able to perform the action
+        if (game.turn !== playerData.type) {
+            throw new Error('Not player turn');
         }
 
         // do the action

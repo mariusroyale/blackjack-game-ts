@@ -3,6 +3,7 @@ import { IPlayer } from "../interfaces/Player";
 import { PlayerType } from "../interfaces/Player";
 import { ICard, Suit, Rank } from "../interfaces/Card";
 import { IGameState } from "../interfaces/GameState";
+import { IGameStats } from "../interfaces/GameStats";
 
 import { Card } from "./Card";
 import { v4 as uuidv4 } from 'uuid';
@@ -14,12 +15,21 @@ export class Blackjack implements IGame {
     public deckSize: number;
     public turn: GameTurn;
     public gameStatus: GameStatus;
+    public gameStats: IGameStats;
 
     constructor() {
         this.gameId = uuidv4();
         this.turn = 'player';
         this.gameStatus = 'active';
         this.deckSize = 0;
+        this.gameStats = {
+            turnsPlayed: 0,
+            winner: '',
+            playerScore: {
+                player: 0,
+                dealer: 0
+            }
+        };
     }
 
     public startGame(): void { 
@@ -117,11 +127,47 @@ export class Blackjack implements IGame {
             players: this.players,
             deckSize: this.deckSize,
             turn: this.turn,
-            gameStatus: this.gameStatus
+            gameStatus: this.gameStatus,
+            gameStats: this.gameStats
         };
+    }
+    
+    private calculateCardPoints(cards: ICard[]): number {
+        let points = 0;
+
+        for (const card of cards) {
+            points += card.getValue();
+        }
+
+        return points;
     }
 
     public setTurn(turn: PlayerType): void {
         this.turn = turn;
+    }
+
+    public checkWinner(): void {
+        
+    }
+
+    public updatePlayerScore(player: IPlayer): number {
+        const playerHand = player.getHand();
+        const playerScore = this.calculateCardPoints(playerHand);
+
+        // todo: change to player ID at some point in time.
+        this.gameStats.playerScore[player.type] = playerScore;
+
+        return playerScore;
+    }
+
+    public incrementTurnsPlayed(): number {
+        const turnsPlayed = this.gameStats.turnsPlayed + 1;
+        this.gameStats.turnsPlayed = turnsPlayed;
+
+        return turnsPlayed;
+    }
+
+    public endGame(): void {
+        this.gameStatus = 'completed';
     }
 }

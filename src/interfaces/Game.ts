@@ -3,7 +3,7 @@ import { IPlayer } from "./Player";
 import { IGameState } from "./GameState"; 
 import { PlayerType } from "./Player";
 
-export type GameStatus = 'active' | 'finished';
+export type GameStatus = 'active' | 'completed';
 export type GameTurn = 'player' | 'dealer';
 
 export interface IGame {
