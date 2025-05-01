@@ -11,6 +11,7 @@
   "author": "Marius",
   "license": "ISC",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.0",
     "@types/readline-sync": "^1.4.8",
@@ -18,7 +19,9 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.1.0",
-    "readline-sync": "^1.4.10"
+    "readline-sync": "^1.4.10",
+    "uuid": "^11.1.0"
   }
 }

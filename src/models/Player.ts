@@ -1,13 +1,16 @@
 import { ICard } from '../interfaces/Card';
 import { IPlayer } from '../interfaces/Player';
+import { PlayerType } from '../interfaces/Player';
 
 export class Player implements IPlayer {
 
     public name: string;
     public hand: ICard[];
+    public type: PlayerType;
 
-    constructor(name: string) {
+    constructor(name: string, type: PlayerType) {
         this.name = name;
+        this.type = type;
         this.hand = [];
     }
 
