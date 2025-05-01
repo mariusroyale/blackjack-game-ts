@@ -246,7 +246,7 @@ Player ends their turn; the dealer will automatically play.
 
 ---
 
-### 🤚 Stand
+### 🎮 Get an existing game state
 
 **GET** `/api/game/:id`  
 Get an existing instance of a game by id. Refer to `/api/game/startGame` for obtaining the game id.
