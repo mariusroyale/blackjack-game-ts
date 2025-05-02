@@ -4,9 +4,15 @@ import { Blackjack } from "../models/Blackjack";
 import { Player } from "../models/Player";
 import { PlayerType } from "../interfaces/Player";
 import { GameAI } from "../models/GameAI";
+import { IGame } from "../interfaces/Game";
 
 export class GameService implements IGameService {
     private games = new Map<string, Blackjack>();
+    private gameAI: GameAI;
+
+    constructor() {
+        this.gameAI = new GameAI(new Blackjack());
+    }
 
     public createGame(playersData: { playerName: string, type: PlayerType }[]): { gameId: string; state: IGameState } {
         const game = new Blackjack();
@@ -75,10 +81,10 @@ export class GameService implements IGameService {
         // dealers will process multiple hits at once
         if (player.getType() === 'dealer') {
             let AIFlow = true;
+            this.gameAI.bindToGame(game);
 
             while (AIFlow) {
-                const gameAI = new GameAI(game);
-                const shouldPlayerHit = gameAI.shouldPlayerHit(player);
+                const shouldPlayerHit = this.gameAI.shouldPlayerHit(player);
 
                 if (shouldPlayerHit) {
                     // dealer hits
@@ -95,16 +101,31 @@ export class GameService implements IGameService {
                     game.incrementTurnsPlayed();
                     game.incrementPlayerTurnsPlayed(player);
                 }
+
+                // update game state in AI
+                this.gameAI.bindToGame(game);
             }
         } else {
             // perform the action
             game.hit(player);
         }
 
-        // todo: add actions played stats
-
         // check winner -- if winner is found, game ends
         game.checkWinner();
+
+        // update AI
+        if (game.gameStatus !== 'active' && game.gameStatus === 'completed') {
+           if (game.gameStats.winner === 'dealer') {
+               // win for AI
+               this.gameAI.incrementWins();
+           } else if (game.gameStats.winner === 'player') {
+               // loss for AI
+               this.gameAI.incrementLosses();
+           }
+        }
+
+        // debug
+        console.log(this.gameAI);
 
         return {
             gameId: gameId,
@@ -147,6 +168,19 @@ export class GameService implements IGameService {
 
         // check winner -- if winner is found, game ends
         game.checkWinner();
+
+        // update AI
+        if (game.gameStatus !== 'active' && game.gameStatus === 'completed') {
+            this.gameAI.bindToGame(game);
+            
+            if (game.gameStats.winner === 'dealer') {
+                // win for AI
+                this.gameAI.incrementWins();
+            } else if (game.gameStats.winner === 'player') {
+                // loss for AI
+                this.gameAI.incrementLosses();
+            }
+         }
 
         return {
             gameId: gameId,

@@ -203,52 +203,38 @@ export class Blackjack implements IGame {
     public checkWinner(): void {
         // check for bust first
         if (this.gameStats.playerScore.player > this.getBlackjackValue()) {
-            this.gameStats.winner = 'dealer';
-            this.gameStatus = 'completed';
-            this.gameEndStatus = 'bust';
+            this.endGame('bust', 'dealer');
             return;
         }
 
         if (this.gameStats.playerScore.dealer > this.getBlackjackValue()) {
-            this.gameStats.winner = 'player';
-            this.gameStatus = 'completed';
-            this.gameEndStatus = 'bust';
+            this.endGame('bust', 'player');
             return;
         }
 
         // very important to check if both players have ended their turn before proceeding with the rest of the checks
         if (this.gameStats.playerEndedTurn && this.gameStats.dealerEndedTurn) {
             if (this.gameStats.playerScore.player === this.gameStats.playerScore.dealer) {
-                this.gameStats.winner = '';
-                this.gameStatus = 'completed';
-                this.gameEndStatus = 'draw';
+                this.endGame('draw', '');
                 return;
             }
     
             if (this.gameStats.playerScore.player === this.getBlackjackValue()) {
-                this.gameStats.winner = 'player';
-                this.gameStatus = 'completed';
-                this.gameEndStatus = 'blackjack';
+                this.endGame('blackjack', 'player');
                 return;
             }
     
             if (this.gameStats.playerScore.dealer === this.getBlackjackValue()) {
-                this.gameStats.winner = 'dealer';
-                this.gameStatus = 'completed';
-                this.gameEndStatus = 'blackjack';
+                this.endGame('blackjack', 'dealer');
                 return;
             }
             
             if (this.gameStats.playerScore.player > this.gameStats.playerScore.dealer) {
-                this.gameStats.winner = 'player';
-                this.gameStatus = 'completed';
-                this.gameEndStatus = 'highScore';
+                this.endGame('highScore', 'player');
                 return;
             }
 
-            this.gameStats.winner = 'dealer';
-            this.gameStatus = 'completed';
-            this.gameEndStatus = 'highScore';
+            this.endGame('highScore', 'dealer');
         }
     }
 
@@ -289,8 +275,10 @@ export class Blackjack implements IGame {
         }
     }
 
-    public endGame(): void {
+    public endGame(status: GameEndStatus, winner: string = ''): void {
         this.gameStatus = 'completed';
+        this.gameEndStatus = status;
+        this.gameStats.winner = winner;
     }
 
     public getBlackjackValue(): number {
