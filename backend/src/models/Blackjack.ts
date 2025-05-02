@@ -146,8 +146,25 @@ export class Blackjack implements IGame {
     private calculateCardPoints(cards: ICard[]): number {
         let points = 0;
 
-        for (const card of cards) {
-            points += card.getValue();
+        // lets sort in order to move Aces to the end, needed for ace logic
+        const sortedCards = [
+            ...cards.filter(card => card.rank !== 'Ace'),
+            ...cards.filter(card => card.rank === 'Ace')
+        ];
+
+        for (const card of sortedCards) {
+            // check for ace
+            if (card.rank === 'Ace') {
+                let tempPoints = points + 11;
+
+                if (tempPoints > 21) {
+                    points += 1;
+                } else {
+                    points += 11;
+                }
+            } else {
+                points += card.getValue();
+            }
         }
 
         return points;
