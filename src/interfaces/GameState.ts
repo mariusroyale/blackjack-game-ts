@@ -1,5 +1,5 @@
 import { IPlayer } from "./Player";
-import { GameStatus, GameTurn } from "./Game";
+import { GameStatus, GameTurn, GameEndStatus } from "./Game";
 import { IGameStats } from "./GameStats";
 
 export interface IGameState {
@@ -8,5 +8,6 @@ export interface IGameState {
     deckSize: number;
     turn: GameTurn;
     gameStatus: GameStatus;
+    gameEndStatus: GameEndStatus;
     gameStats: IGameStats;
 }

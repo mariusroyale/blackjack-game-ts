@@ -72,15 +72,52 @@ export class GameService implements IGameService {
             throw new Error('Player not found');
         }
 
-        // perform the action
-        game.hit(player);
+        // dealers will process multiple hits at once
+        if (player.getType() === 'dealer') {
+            let AIFlow = true;
 
-        // update the turn
-        game.setTurn(game.turn === 'player' ? 'dealer' : 'player');
+            while (AIFlow) {
+                const dealerScore = game.getPlayerScore(player);
+                let percentChance = 0;
 
-        // update game stats
-        game.updatePlayerScore(player);
-        game.incrementTurnsPlayed();
+                if (dealerScore <= 10) {
+                    percentChance = 100;
+                } else if (dealerScore < 19 && dealerScore > 10) {
+                    percentChance = (21 - dealerScore - 1) * 10;
+                }
+
+                // todo: move to logger
+                console.log(`Dealer points: ${dealerScore}`);
+                console.log(`Dealer chance to hit: ${percentChance}%`);
+                
+                let randomChance: number = Math.floor(Math.random() * 100);
+                console.log(`Random chance: ${randomChance}`);
+
+                if (percentChance > randomChance) {
+                    // dealer hits
+                    game.hit(player);
+                } else {
+                    // dealer stands
+                    game.stand(player);
+                    AIFlow = false;
+
+                    // update the turn
+                    game.setTurn('player');
+
+                    // update game stats
+                    game.incrementTurnsPlayed();
+                    game.incrementPlayerTurnsPlayed(player);
+                }
+            }
+        } else {
+            // perform the action
+            game.hit(player);
+        }
+
+        // todo: add actions played stats
+
+        // check winner -- if winner is found, game ends
+        game.checkWinner();
 
         return {
             gameId: gameId,
@@ -105,7 +142,26 @@ export class GameService implements IGameService {
             throw new Error('Not player turn');
         }
 
-        // do the action
+        // do the action. For simplicity we will have the AI perform the action now.
+        const players = game.getPlayers();
+        const player = players.find(player => player.getName() === playerData.playerName && player.getType() === playerData.type);
+
+        if (!player) {
+            throw new Error('Player not found');
+        }
+
+        // perform the action
+        game.stand(player);
+
+        // update the turn
+        game.setTurn(game.turn === 'player' ? 'dealer' : 'player');
+
+        // update game stats
+        game.incrementTurnsPlayed();
+        game.incrementPlayerTurnsPlayed(player);
+
+        // check winner -- if winner is found, game ends
+        game.checkWinner();
 
         return {
             gameId: gameId,

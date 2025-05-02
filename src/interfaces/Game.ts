@@ -5,6 +5,7 @@ import { PlayerType } from "./Player";
 
 export type GameStatus = 'active' | 'completed';
 export type GameTurn = 'player' | 'dealer';
+export type GameEndStatus = 'draw' | 'blackjack' | 'bust' | 'highScore' | '';
 
 export interface IGame {
     gameId: string;

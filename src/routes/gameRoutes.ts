@@ -8,15 +8,20 @@ const gameService = new GameService();
 gameRoutes.get('/game/:id', (req: Request, res: Response) => {
     const { id } = req.params;
 
-    // todo: get game state from Game Service
-    const game = false;
+    try {
+        const game = gameService.getGameState(id);
 
-    if (!game) {
-        res.status(404).json({ message: 'Game not found with id: ' + id });
-        return;
+        if (!game) {
+            res.status(404).json({ message: 'Game not found with id: ' + id });
+            return;
+        }
+
+        const { gameId, state } = game;
+        res.json({ gameId, state });
+    } catch (error) {
+        console.log(error); // implement logging
+        res.status(400).json({ message: error });
     }
-    
-    res.json({});
 });
 
 gameRoutes.post('/game/startGame', (req: Request, res: Response) => {
@@ -66,12 +71,20 @@ gameRoutes.post('/game/:id/stand', (req: Request, res: Response) => {
         const { id } = req.params;
         const { playerData } = req.body;
 
-        // todo: validate which actor turn it is, that is the player or the dealer
-        // todo:validate game state / id
-        // todo: end game with Game Service
-        // GameService.hit(id, actorData);
-
-        res.json({});
+        try {
+            const game = gameService.actionStand(id, playerData[0]);
+    
+            if (!game) {
+                res.status(404).json({ message: 'Game not found with id: ' + id });
+                return;
+            }
+    
+            const { gameId, state } = game;
+            res.json({ gameId, state });
+        } catch (error) {
+            console.log(error); // implement logging
+            res.status(400).json({ message: error });
+        }
     } catch (error) {
         console.log(error); // implement logging
         res.status(400).json({ message: error });
