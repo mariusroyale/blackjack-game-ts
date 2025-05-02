@@ -1,0 +1,240 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #3fc93b, #174700);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  text-align: center;
+  max-width: 1000px;
+  min-width: 1000px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.status p {
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+
+.app button {
+  width: 200px;
+  height: 44px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  margin: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.app button:hover {
+  background-color: #218838;
+  transform: scale(1.03);
+}
+
+.table {
+  margin-top: 20px;
+  background-color: #084408;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card {
+  background: white;
+  width: 110px;
+  height: 150px;
+  border-radius: 12px;
+  box-shadow: 3px 3px 10px #000;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 28px;
+  padding: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  opacity: 0;  /* Cards start hidden */
+  animation: cardEnter 0.5s ease-out forwards;
+  cursor: default;
+  user-select: none;
+}
+
+.card:hover {
+  transform: translateY(-15px) scale(1.08) rotate(-1.5deg);
+  box-shadow: 0 14px 26px rgba(0, 0, 0, 0.55);
+  filter: brightness(1.2);
+}
+
+.card-value {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: 30px;
+}
+
+.card-suit {
+  font-size: 52px;
+  line-height: 1;
+}
+
+.controls {
+  margin-top: 20px;
+}
+
+.controls button {
+  padding: 10px 25px;
+  margin: 0 8px;
+  background-color: #0069d9;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.controls button:hover {
+  background-color: #0053b3;
+}
+
+.controls button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.status-panel {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+}
+
+.status-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ddd;
+  margin-bottom: 4px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+/* Status-specific colors */
+.status-completed    { background-color: #28a745; color: white; }
+.status-active       { background-color: #ffc107; color: black; }
+
+/* Fallback for any unknown status */
+.status-badge:not(.status-completed):not(.status-active) {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* Winner */
+.status-winner       { background-color: #17a2b8; color: white; }
+/* Reason */
+.status-reason       { background-color: #6c757d; color: white; }
+/* Turn */
+.status-turn         { background-color: #007bff; color: white; }
+
+.player-name-entry {
+  margin: 30px auto;
+}
+
+.player-name-entry input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: none;
+  margin-right: 10px;
+  width: 200px;
+}
+
+.winner-banner {
+  font-size: 28px;
+  font-weight: bold;
+  padding: 20px;
+  background-color: rgba(255, 215, 0, 0.2); /* goldish */
+  border: 2px solid gold;
+  border-radius: 12px;
+  color: gold;
+  animation: pulse 1s ease-in-out infinite alternate;
+  margin-top: 0px;
+  box-shadow: 0 0 20px gold;
+}
+
+.new-game-button {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.input-error {
+  border: 2px solid rgb(255, 253, 131);
+}
+
+.error-message {
+  color: rgb(253, 255, 155);
+  margin-top: 8px;
+  font-size: 14px;
+}
