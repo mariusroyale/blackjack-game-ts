@@ -1,5 +1,12 @@
 import { Suit, Rank, ICard } from '../interfaces/Card';
 
+export enum CardRank {
+    Ace = 'Ace',
+    King = 'King',
+    Queen = 'Queen',
+    Jack = 'Jack',
+}
+
 export class Card implements ICard {
     public suit: Suit;
     public rank: Rank;
@@ -10,14 +17,18 @@ export class Card implements ICard {
     }
 
     public getValue(): number {
-        if (this.rank === "Ace") { 
-            return 11; 
-        }
-
         if (this.rank === "Jack" || this.rank === "Queen" || this.rank === "King") { 
             return 10;
         }
 
         return parseInt(this.rank);
+    }
+
+    public getHighAceValue(): number {
+        return 11;
+    }
+
+    public getLowAceValue(): number {
+        return 1;
     }
 }

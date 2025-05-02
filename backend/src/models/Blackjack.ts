@@ -2,6 +2,7 @@ import { IGame, GameTurn, GameStatus, GameEndStatus } from "../interfaces/Game";
 import { IPlayer } from "../interfaces/Player";
 import { PlayerType } from "../interfaces/Player";
 import { ICard, Suit, Rank } from "../interfaces/Card";
+import { CardRank } from "./Card";
 import { IGameState } from "../interfaces/GameState";
 import { IGameStats } from "../interfaces/GameStats";
 
@@ -147,20 +148,17 @@ export class Blackjack implements IGame {
         let points = 0;
 
         // lets sort in order to move Aces to the end, needed for ace logic
-        const sortedCards = [
-            ...cards.filter(card => card.rank !== 'Ace'),
-            ...cards.filter(card => card.rank === 'Ace')
-        ];
+        const sortedCards = this.getCardsSortedByAceLast(cards);
 
         for (const card of sortedCards) {
             // check for ace
-            if (card.rank === 'Ace') {
-                let tempPoints = points + 11;
+            if (card.rank === CardRank.Ace) {
+                let tempPoints = points + card.getHighAceValue();
 
-                if (tempPoints > 21) {
-                    points += 1;
+                if (tempPoints > this.getBlackjackValue()) {
+                    points += card.getLowAceValue();
                 } else {
-                    points += 11;
+                    points += card.getHighAceValue();
                 }
             } else {
                 points += card.getValue();
@@ -168,6 +166,15 @@ export class Blackjack implements IGame {
         }
 
         return points;
+    }
+
+    private getCardsSortedByAceLast(cards: ICard[]): ICard[] {
+        const sortedCards = [
+            ...cards.filter(card => card.rank !== CardRank.Ace),
+            ...cards.filter(card => card.rank === CardRank.Ace),
+        ];
+
+        return sortedCards;
     }
 
     public setTurn(turn: PlayerType): void {
@@ -184,14 +191,14 @@ export class Blackjack implements IGame {
 
     public checkWinner(): void {
         // check for bust first
-        if (this.gameStats.playerScore.player > 21) {
+        if (this.gameStats.playerScore.player > this.getBlackjackValue()) {
             this.gameStats.winner = 'dealer';
             this.gameStatus = 'completed';
             this.gameEndStatus = 'bust';
             return;
         }
 
-        if (this.gameStats.playerScore.dealer > 21) {
+        if (this.gameStats.playerScore.dealer > this.getBlackjackValue()) {
             this.gameStats.winner = 'player';
             this.gameStatus = 'completed';
             this.gameEndStatus = 'bust';
@@ -207,14 +214,14 @@ export class Blackjack implements IGame {
                 return;
             }
     
-            if (this.gameStats.playerScore.player === 21) {
+            if (this.gameStats.playerScore.player === this.getBlackjackValue()) {
                 this.gameStats.winner = 'player';
                 this.gameStatus = 'completed';
                 this.gameEndStatus = 'blackjack';
                 return;
             }
     
-            if (this.gameStats.playerScore.dealer === 21) {
+            if (this.gameStats.playerScore.dealer === this.getBlackjackValue()) {
                 this.gameStats.winner = 'dealer';
                 this.gameStatus = 'completed';
                 this.gameEndStatus = 'blackjack';
@@ -273,5 +280,9 @@ export class Blackjack implements IGame {
 
     public endGame(): void {
         this.gameStatus = 'completed';
+    }
+
+    public getBlackjackValue(): number {
+        return 21;
     }
 }
