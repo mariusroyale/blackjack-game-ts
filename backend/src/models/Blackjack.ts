@@ -5,7 +5,6 @@ import { ICard, Suit, Rank } from "../interfaces/Card";
 import { CardRank } from "./Card";
 import { IGameState } from "../interfaces/GameState";
 import { IGameStats } from "../interfaces/GameStats";
-
 import { Card } from "./Card";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -105,6 +104,18 @@ export class Blackjack implements IGame {
 
     public getPlayers(): IPlayer[] {
         return this.players;
+    }
+
+    public getPlayerStateByName(playerName: string, playerType: PlayerType): IPlayer | null {
+
+        const players = this.getPlayers();
+        const player = players.find(player => player.getName() === playerName && player.getType() === playerType);
+
+        if (!player) {
+            return null;
+        }
+        
+        return player;
     }
 
     public hit(player: IPlayer): void {

@@ -3,6 +3,7 @@ import { IGameState } from "../interfaces/GameState";
 import { Blackjack } from "../models/Blackjack";
 import { Player } from "../models/Player";
 import { PlayerType } from "../interfaces/Player";
+import { GameAI } from "../models/GameAI";
 
 export class GameService implements IGameService {
     private games = new Map<string, Blackjack>();
@@ -65,8 +66,7 @@ export class GameService implements IGameService {
             throw new Error('Not player turn');
         }
 
-        const players = game.getPlayers();
-        const player = players.find(player => player.getName() === playerData.playerName && player.getType() === playerData.type);
+        const player = game.getPlayerStateByName(playerData.playerName, playerData.type);
 
         if (!player) {
             throw new Error('Player not found');
@@ -77,23 +77,10 @@ export class GameService implements IGameService {
             let AIFlow = true;
 
             while (AIFlow) {
-                const dealerScore = game.getPlayerScore(player);
-                let percentChance = 0;
+                const gameAI = new GameAI(game);
+                const shouldPlayerHit = gameAI.shouldPlayerHit(player);
 
-                if (dealerScore <= 10) {
-                    percentChance = 100;
-                } else if (dealerScore < 19 && dealerScore > 10) {
-                    percentChance = (21 - dealerScore - 1) * 10;
-                }
-
-                // todo: move to logger
-                console.log(`Dealer points: ${dealerScore}`);
-                console.log(`Dealer chance to hit: ${percentChance}%`);
-                
-                let randomChance: number = Math.floor(Math.random() * 100);
-                console.log(`Random chance: ${randomChance}`);
-
-                if (percentChance > randomChance) {
+                if (shouldPlayerHit) {
                     // dealer hits
                     game.hit(player);
                 } else {
@@ -142,9 +129,7 @@ export class GameService implements IGameService {
             throw new Error('Not player turn');
         }
 
-        // do the action. For simplicity we will have the AI perform the action now.
-        const players = game.getPlayers();
-        const player = players.find(player => player.getName() === playerData.playerName && player.getType() === playerData.type);
+        const player = game.getPlayerStateByName(playerData.playerName, playerData.type);
 
         if (!player) {
             throw new Error('Player not found');
