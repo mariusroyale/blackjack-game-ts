@@ -64,6 +64,16 @@ export class GameAI implements IGameAI {
         this.updateEmotionalConfidence();
 
         const dealerScore = this.game.getPlayerScore(player);
+
+        if (this.game.players[0] && this.game.players[0].type === "player") {
+            const playerScore = this.game.getPlayerScore(this.game.players[0]);
+
+            // we can allow the dealer to stop here because the player turn is over
+            if (dealerScore > playerScore) {
+                return false;
+            }
+        }
+
         let chanceToHit = 0;
 
         if (dealerScore < 16) {
