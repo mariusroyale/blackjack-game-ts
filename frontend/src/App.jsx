@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 // Toggle mock mode
@@ -21,6 +21,10 @@ export default function App() {
   const [dealerName, setDealerName] = useState("");
   const [showBanner, setShowBanner] = useState(true);
   const [nameError, setNameError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
+  const spinnerTimeoutRef = useRef(null);
+  const loadingInProgress = useRef(false);
   const dealerNames = [
     "Ace Dealer Bot",
     // "Queen of Clubs",
@@ -97,6 +101,8 @@ export default function App() {
       setGameId(data.gameId);
     } catch (error) {
       console.error("Start game failed:", error.message);
+    } finally {
+      clearLoadingScreen();
     }
   };
 
@@ -111,6 +117,7 @@ export default function App() {
 
     if (game.gameStatus === "active") {
       try {
+        initiateLoadingScreen();
         const res = await fetch(`${API_BASE_URL}/api/game/${gameId}/hit`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -136,6 +143,8 @@ export default function App() {
         }
       } catch (error) {
         console.error("Hit action failed:", err.message);
+      } finally {
+        clearLoadingScreen();
       }
     } else {
       console.error("Game is not active.");
@@ -155,7 +164,6 @@ export default function App() {
     }
 
     if (game.gameStatus === "active") {
-
       const player = game?.players?.find(p => p.type === "player");
       const dealer = game?.players?.find(p => p.type === "dealer");
 
@@ -170,6 +178,7 @@ export default function App() {
       }
       
       try {
+        initiateLoadingScreen();
         const res = await fetch(`${API_BASE_URL}/api/game/${gameId}/stand`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -198,6 +207,8 @@ export default function App() {
         }
       } catch (error) {
         console.error("Stand action failed:", err.message);
+      } finally {
+        clearLoadingScreen();
       }
     } else {
       console.error("Game is not active.");
@@ -207,7 +218,6 @@ export default function App() {
   const resetGame = () => {
     setGame(null);   // Reset the game state
     setGameId(null); // Reset the gameId
-
     startGame();
   };
 
@@ -235,9 +245,34 @@ export default function App() {
       setNameError(true);
       return;
     }
+
+    initiateLoadingScreen();
     setNameError(false);
     startGame(); // existing function
   };
+
+  const initiateLoadingScreen = () => {
+    if (loadingInProgress.current) {
+      return;
+    }
+
+    loadingInProgress.current = true;
+
+    setLoading(true);
+    spinnerTimeoutRef.current = setTimeout(() => {
+      setShowSpinner(true);
+    }, 200);
+  }
+
+  const clearLoadingScreen = () => {
+    if (spinnerTimeoutRef.current) {
+      clearTimeout(spinnerTimeoutRef.current);
+    }
+    
+    setLoading(false);
+    setShowSpinner(false);
+    loadingInProgress.current = false;
+  }
 
   return (
     <div className="app">
@@ -265,6 +300,15 @@ export default function App() {
           {nameError && (
             <div className="error-message">Your name is mandatory</div>
           )}
+        </div>
+      )}
+
+      {showSpinner && (
+        <div className="overlay">
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+            <p>Dealing out some fun...</p>
+          </div>
         </div>
       )}
 
@@ -299,7 +343,7 @@ export default function App() {
               </span>
             </div>
           </div>
-          {game.gameStatus === "completed" && ( 
+          {/* {game.gameStatus === "completed" && ( 
             <div className="winner-banner">
               {game.gameStats.winner === ""
                 ? "Draw!"
@@ -310,14 +354,32 @@ export default function App() {
                   } wins! 🎉`
               }
             </div>
-          )}
+          )} */}
           <div className="hands">
             <div className="hand">
-              <h2>{game.players[1].name}</h2>
+            <h2
+              className={
+                game.gameStatus === "completed" && game.gameStats.winner === game.players[1].type
+                  ? "winner-highlight"
+                  : ""
+              }
+            >
+              {game.players[1].name}
+              {game.gameStatus === "completed" && game.gameStats.winner === game.players[1].type && " Wins!🏆"}
+            </h2>
               <div className="cards">{renderCards(game.players[1].hand)}</div>
             </div>
             <div className="hand">
-              <h2>{game.players[0].name}</h2>
+            <h2
+              className={
+                game.gameStatus === "completed" && game.gameStats.winner === game.players[0].type
+                  ? "winner-highlight"
+                  : ""
+              }
+            >
+              {game.players[0].name}
+              {game.gameStatus === "completed" && game.gameStats.winner === game.players[0].type && " Wins! 🏆"}
+            </h2>
               <div className="cards">{renderCards(game.players[0].hand)}</div>
             </div>
           </div>
