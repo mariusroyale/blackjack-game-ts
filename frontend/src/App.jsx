@@ -23,27 +23,27 @@ export default function App() {
   const [nameError, setNameError] = useState(false);
   const dealerNames = [
     "Ace Dealer Bot",
-    "Queen of Clubs",
-    "Bot Vegas",
-    "CardMaster 9000",
-    "Dealertron",
-    "King of Spades",
-    "The Shuffle Machine",
-    "LuckyByte",
-    "Blackjackzilla",
-    "Neon Jack",
-    "Deala AI-47",
-    "The House Whisperer",
-    "VegasPulse",
-    "Quantum Dealer",
-    "Chips McBot",
-    "Croupier X",
-    "JackBot Royale",
-    "Shufflemancer",
-    "HighRollerX",
-    "The Algorithm",
-    "Mr. CardSharp",
-    "Bot Sinatra"
+    // "Queen of Clubs",
+    // "Bot Vegas",
+    // "CardMaster 9000",
+    // "Dealertron",
+    // "King of Spades",
+    // "The Shuffle Machine",
+    // "LuckyByte",
+    // "Blackjackzilla",
+    // "Neon Jack",
+    // "Deala AI-47",
+    // "The House Whisperer",
+    // "VegasPulse",
+    // "Quantum Dealer",
+    // "Chips McBot",
+    // "Croupier X",
+    // "JackBot Royale",
+    // "Shufflemancer",
+    // "HighRollerX",
+    // "The Algorithm",
+    // "Mr. CardSharp",
+    // "Bot Sinatra"
   ];
 
   const API_BASE_URL = "http://localhost:3000";
@@ -239,7 +239,9 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1>♠️ Blackjack </h1>
+      <h1>
+        <span style={{ color: "black" }}>♠</span> Blackjack
+      </h1>
 
       {!game && (
         <div className="player-name-entry">
