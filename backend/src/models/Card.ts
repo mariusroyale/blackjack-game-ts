@@ -13,12 +13,12 @@ export const RANKS: Rank[] = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jac
 export class Card implements ICard {
     public suit: Suit;
     public rank: Rank;
-    public deckSeed: string;
+    public nonce: number | null;
 
-    constructor(suit: Suit, rank: Rank, deckSeed: string) {
+    constructor(suit: Suit, rank: Rank) {
         this.suit = suit;
         this.rank = rank;
-        this.deckSeed = deckSeed;
+        this.nonce = null;
     }
 
     public getValue(): number {

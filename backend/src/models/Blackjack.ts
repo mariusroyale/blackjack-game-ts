@@ -13,14 +13,15 @@ import { Deck } from "./Deck";
 export class Blackjack implements IGame {
     public gameId: string;
     public players: IPlayer[] = [];
-    public deck!: IDeck;
+    public deck: IDeck;
     public turn: GameTurn;
     public gameStatus: GameStatus;
     public gameEndStatus: GameEndStatus;
     public gameStats: IGameStats;
 
-    constructor() {
+    constructor(deck: IDeck) {
         this.gameId = uuidv4();
+        this.deck = deck;
         this.turn = 'player';
         this.gameStatus = 'active';
         this.gameEndStatus = '';
@@ -38,9 +39,9 @@ export class Blackjack implements IGame {
         };
     }
 
-    public startGame(): void { 
-        // create and shuffle deck
-        this.deck = new Deck();
+    public startGame(): void {
+         // deal initial cards
+         this.dealInitialCards();
     }
 
     public getGameId(): string {
@@ -53,8 +54,7 @@ export class Blackjack implements IGame {
 
     public dealInitialCards(): void {
         if (!this.deck) {
-            // throw error
-            console.log('Deck is empty');
+            return;
         }
 
         this.players.forEach(player => {
@@ -121,7 +121,7 @@ export class Blackjack implements IGame {
             gameId: this.gameId,
             players: this.players,
             deckSize: this.deck.getDeckSize(),
-            deckSeed: this.deck.getDeckSeed(),
+            deckSeed: this.deck.getDeckSeedHash(),
             turn: this.turn,
             gameStatus: this.gameStatus,
             gameEndStatus: this.gameEndStatus,

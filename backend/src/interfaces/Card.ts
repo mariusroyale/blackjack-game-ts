@@ -4,6 +4,8 @@ export type Rank = '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | 'Jack'
 export interface ICard {
     suit: Suit;
     rank: Rank;
+    nonce: number | null;
+
     getValue(): number;
     getHighAceValue(): number;
     getLowAceValue(): number;

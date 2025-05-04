@@ -5,17 +5,24 @@ import { Player } from "../models/Player";
 import { PlayerType } from "../interfaces/Player";
 import { GameAI } from "../models/GameAI";
 import { IGame } from "../interfaces/Game";
+import { Deck } from "../models/Deck";
 
 export class GameService implements IGameService {
     private games = new Map<string, Blackjack>();
     private gameAI: GameAI;
+    private deck: Deck;
 
     constructor() {
-        this.gameAI = new GameAI(new Blackjack());
+        this.deck = new Deck();
+        this.gameAI = new GameAI(new Blackjack(this.deck));
+
+        this.deck.getDeck().forEach((card, index) => {
+            console.log(`${index}: ${card.rank} of ${card.suit}`);
+        });
     }
 
     public createGame(playersData: { playerName: string, type: PlayerType }[]): { gameId: string; state: IGameState } {
-        const game = new Blackjack();
+        const game = new Blackjack(this.deck);
         const gameId = game.getGameId();
 
         // adding players
@@ -27,9 +34,6 @@ export class GameService implements IGameService {
 
         // start the game
         game.startGame();
-
-        // deal initial cards
-        game.dealInitialCards();
 
         // save the game state
         this.games.set(gameId, game);

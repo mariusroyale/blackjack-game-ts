@@ -2,7 +2,6 @@ import { ICard } from "./Card";
 
 export interface IDeck {
     deck: ICard[];
-    deckSeed: string;
 
     numberOfCardsPerDeck: number;
     numberOfCardsInDeck: number;
@@ -14,4 +13,5 @@ export interface IDeck {
     getDeckSize(): number;
     getDeck(): ICard[];
     getDeckSeed(): string;
+    getDeckSeedHash(): string;
 }
