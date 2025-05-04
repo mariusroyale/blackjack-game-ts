@@ -49,10 +49,9 @@ export default function App() {
     // "Mr. CardSharp",
     // "Bot Sinatra"
   ];
-
   const API_BASE_URL = process.env.NODE_ENV === "production" 
   ? "https://blackjack-game-ts.onrender.com"
-  : "http://localhost:3000"; 
+  : "http://localhost:3000";
 
   const startGame = async () => {
     if (USE_MOCK) {
@@ -222,23 +221,28 @@ export default function App() {
   };
 
   const renderCards = (hand) =>
-    hand.map((card, idx) => (
-      <div
-        key={idx}
-        className="card deal-in"
-        style={{
-          color: card.suit === "Hearts" || card.suit === "Diamonds" ? "red" : "black",
-          animationDelay: `${idx * 100}ms`, // staggered effect
-        }}
-      >
-        <div className="card-value">
-          {card.rank === "10" ? "10" : card.rank[0]}
+    hand.map((card, idx) => {
+      const cardColor = card.suit === "Hearts" || card.suit === "Diamonds" ? "red" : "black";
+      const suitClass = cardColor === "red" ? "card-red-suit" : "card-black-suit";
+      
+      return (
+        <div
+          key={idx}
+          className={`card deal-in ${suitClass}`}
+          style={{
+            color: cardColor,
+            animationDelay: `${idx * 100}ms`, // staggered effect
+          }}
+        >
+          <div className="card-value">
+            {card.rank === "10" ? "10" : card.rank[0]}
+          </div>
+          <div className="card-suit">
+            {{ Hearts: "♥", Diamonds: "♦", Clubs: "♣", Spades: "♠" }[card.suit]}
+          </div>
         </div>
-        <div className="card-suit">
-          {{ Hearts: "♥", Diamonds: "♦", Clubs: "♣", Spades: "♠" }[card.suit]}
-        </div>
-      </div>
-    ));
+      );
+    });
 
   const handleStartGame = () => {
     if (!playerName.trim()) {
@@ -274,8 +278,49 @@ export default function App() {
     loadingInProgress.current = false;
   }
 
+  const ThemeSelector = () => {
+    const [isDark, setIsDark] = useState(() => {
+      // Read from localStorage on initial load
+      const saved = localStorage.getItem("theme");
+      
+      if (saved) {
+        return saved === "dark";
+      }
+      
+      // Default to current DOM state
+      return document.body.classList.contains("dark-theme");
+    });
+
+    useEffect(() => {
+      if (isDark) {
+        document.body.classList.add("dark-theme");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.body.classList.remove("dark-theme");
+        localStorage.setItem("theme", "light");
+      }
+    }, [isDark]);
+
+    return (
+      <div className="theme-selector">
+        <div
+          className={`theme-box light ${!isDark ? "selected" : ""}`}
+          onClick={() => setIsDark(false)}
+          title="Light Theme"
+        ></div>
+        <div
+          className={`theme-box dark ${isDark ? "selected" : ""}`}
+          onClick={() => setIsDark(true)}
+          title="Dark Theme"
+        ></div>
+      </div>
+    );
+  }
+
   return (
     <div className="app">
+      <ThemeSelector />
+      
       <h1>
         <span style={{ color: "black" }}>♠</span> Blackjack
       </h1>
@@ -314,6 +359,9 @@ export default function App() {
 
       {game && (
         <div className="table">
+          {/* <div className="deck-area">
+            <div className="deck-back"></div>
+          </div> */}
           <div className="status-panel">
             <div className="status-item">
               <span className="status-label">Status</span>

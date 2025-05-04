@@ -312,3 +312,140 @@ h1 {
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
   }
 }
+
+.theme-selector {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.theme-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+}
+
+.theme-box.light {
+  background-color: #fff;
+}
+
+.theme-box.dark {
+  background-color: #1e1e1e;
+}
+
+.theme-box.selected {
+  transform: scale(1.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  border: 4px solid #34d399;
+}
+
+.dark-theme {
+  background: #111827;
+  color: #f9fafb; /* gold/yellow */
+}
+
+.dark-theme .app button,
+.dark-theme .controls button {
+  background-color: #111827;
+  color: #f9fafb;
+  border: 2px solid #facc15;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dark-theme .app button:hover,
+.dark-theme .controls button:hover {
+  background-color: #1f2d4b;
+}
+
+.dark-theme .table {
+  background-color: #1f2937;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+.dark-theme .card {
+  background-color: #1f2937;
+  box-shadow: 3px 3px 10px #000;
+  border-radius: 10px;
+}
+
+.dark-theme .card-black-suit {
+  color: #facc15 !important;
+  border: 2px solid #facc15;
+}
+
+.dark-theme .card-red-suit {
+  color: #34d399 !important;
+  border: 2px solid #34d399;
+}
+
+.dark-theme .card-black-suit:hover {
+  filter: brightness(1.3);
+  box-shadow: 0 14px 26px rgba(255, 215, 0, 0.4);
+}
+
+.dark-theme .card-red-suit:hover {
+  filter: brightness(1.3);
+  box-shadow: 0 14px 26px rgba(80, 200, 120, 0.4);
+}
+
+.dark-theme .status-label,
+.dark-theme .status-badge,
+.dark-theme .winner-banner,
+.dark-theme .winner-highlight,
+.dark-theme .error-message {
+  color: #ffd700 !important;
+}
+
+.dark-theme .status-completed    { background-color: #555; }
+.dark-theme .status-active       { background-color: #666; color: #ffd700; }
+.dark-theme .status-turn         { background-color: #007bff; color: #fff; }
+.dark-theme .status-winner       { background-color: #444; color: #ffd700; }
+
+.dark-theme .overlay {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.dark-theme .spinner {
+  border: 8px solid rgba(255, 215, 0, 0.1);
+  border-top: 8px solid #ffd700;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Deck container */
+.deck-area {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 110px;
+  height: 150px;
+  z-index: 10;
+}
+
+/* The visual back of the deck */
+.deck-back {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    135deg,
+    #2d2d2d,
+    #2d2d2d 5px,
+    #3a3a3a 5px,
+    #3a3a3a 10px
+  );
+  border: 2px solid #666;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
