@@ -215,8 +215,6 @@ export default function App() {
   };
 
   const resetGame = () => {
-    setGame(null);   // Reset the game state
-    setGameId(null); // Reset the gameId
     startGame();
   };
 
