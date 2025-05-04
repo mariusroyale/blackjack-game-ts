@@ -5,7 +5,7 @@ const gameRoutes = express.Router();
 // We place GameService here because we want to persist to memory the games map data
 const gameService = new GameService(); 
 
-gameRoutes.get('/game/:id', (req: Request, res: Response) => {
+gameRoutes.get('/games/:id', (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -24,7 +24,7 @@ gameRoutes.get('/game/:id', (req: Request, res: Response) => {
     }
 });
 
-gameRoutes.post('/game/startGame', (req: Request, res: Response) => {
+gameRoutes.post('/games', (req: Request, res: Response) => {
     const { playerData } = req.body;
 
     if (!playerData) {
@@ -41,7 +41,7 @@ gameRoutes.post('/game/startGame', (req: Request, res: Response) => {
     }
 });
 
-gameRoutes.post('/game/:id/hit', (req: Request, res: Response) => {
+gameRoutes.post('/games/:id/hit', (req: Request, res: Response) => {
     const { id } = req.params;
     const { playerData } = req.body;
 
@@ -66,7 +66,7 @@ gameRoutes.post('/game/:id/hit', (req: Request, res: Response) => {
     }
 });
 
-gameRoutes.post('/game/:id/stand', (req: Request, res: Response) => {
+gameRoutes.post('/games/:id/stand', (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { playerData } = req.body;

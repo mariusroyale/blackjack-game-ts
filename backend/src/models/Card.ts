@@ -7,13 +7,18 @@ export enum CardRank {
     Jack = 'Jack',
 }
 
+export const SUITS: Suit[] = ["Hearts", "Diamonds", "Clubs", "Spades"]; 
+export const RANKS: Rank[] = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
+
 export class Card implements ICard {
     public suit: Suit;
     public rank: Rank;
+    public deckSeed: string;
 
-    constructor(suit: Suit, rank: Rank) {
+    constructor(suit: Suit, rank: Rank, deckSeed: string) {
         this.suit = suit;
         this.rank = rank;
+        this.deckSeed = deckSeed;
     }
 
     public getValue(): number {

@@ -15,6 +15,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.3",
     "@types/readline-sync": "^1.4.8",
+    "@types/seedrandom": "^3.0.8",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
@@ -22,6 +23,7 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "readline-sync": "^1.4.10",
+    "seedrandom": "^3.0.5",
     "uuid": "^11.1.0"
   }
 }

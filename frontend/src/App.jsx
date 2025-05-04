@@ -80,7 +80,7 @@ export default function App() {
         setDealerName(currentDealerName);
       }
 
-      const res = await fetch(`${API_BASE_URL}/api/game/startGame`, {
+      const res = await fetch(`${API_BASE_URL}/api/games`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -117,7 +117,7 @@ export default function App() {
     if (game.gameStatus === "active") {
       try {
         initiateLoadingScreen();
-        const res = await fetch(`${API_BASE_URL}/api/game/${gameId}/hit`, {
+        const res = await fetch(`${API_BASE_URL}/api/games/${gameId}/hit`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -178,7 +178,7 @@ export default function App() {
       
       try {
         initiateLoadingScreen();
-        const res = await fetch(`${API_BASE_URL}/api/game/${gameId}/stand`, {
+        const res = await fetch(`${API_BASE_URL}/api/games/${gameId}/stand`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

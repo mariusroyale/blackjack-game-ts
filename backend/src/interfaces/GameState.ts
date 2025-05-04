@@ -6,6 +6,7 @@ export interface IGameState {
     gameId: string;
     players: IPlayer[];
     deckSize: number;
+    deckSeed: string;
     turn: GameTurn;
     gameStatus: GameStatus;
     gameEndStatus: GameEndStatus;

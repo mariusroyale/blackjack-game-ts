@@ -2,6 +2,7 @@ import { ICard } from "./Card";
 import { IPlayer } from "./Player";
 import { IGameState } from "./GameState"; 
 import { PlayerType } from "./Player";
+import { IDeck } from "./Deck";
 
 export type GameStatus = 'active' | 'completed';
 export type GameTurn = 'player' | 'dealer';
@@ -10,8 +11,7 @@ export type GameEndStatus = 'draw' | 'blackjack' | 'bust' | 'highScore' | '';
 export interface IGame {
     gameId: string;
     players: IPlayer[];
-    deck: ICard[];
-    deckSize: number;
+    deck: IDeck;
     turn: GameTurn;
     gameStatus: GameStatus;
 

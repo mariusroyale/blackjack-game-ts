@@ -5,14 +5,15 @@ import { ICard, Suit, Rank } from "../interfaces/Card";
 import { CardRank } from "./Card";
 import { IGameState } from "../interfaces/GameState";
 import { IGameStats } from "../interfaces/GameStats";
+import { IDeck } from "../interfaces/Deck";
 import { Card } from "./Card";
 import { v4 as uuidv4 } from 'uuid';
+import { Deck } from "./Deck";
 
 export class Blackjack implements IGame {
     public gameId: string;
     public players: IPlayer[] = [];
-    public deck: ICard[] = [];
-    public deckSize: number;
+    public deck!: IDeck;
     public turn: GameTurn;
     public gameStatus: GameStatus;
     public gameEndStatus: GameEndStatus;
@@ -23,7 +24,6 @@ export class Blackjack implements IGame {
         this.turn = 'player';
         this.gameStatus = 'active';
         this.gameEndStatus = '';
-        this.deckSize = 0;
         this.gameStats = {
             turnsPlayed: 0,
             playerTurnsPlayed: 0,
@@ -39,44 +39,16 @@ export class Blackjack implements IGame {
     }
 
     public startGame(): void { 
-        this.createDeck();
-        this.shuffleDeck();
+        // create and shuffle deck
+        this.deck = new Deck();
     }
 
     public getGameId(): string {
         return this.gameId;
     }
 
-    private createDeck(): void {
-        const suits: Suit[] = ["Hearts", "Diamonds", "Clubs", "Spades"]; 
-        const ranks: Rank[] = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"];
-
-        for (const suit of suits) {
-            for (const rank of ranks) {
-                this.deck.push(new Card(suit, rank));
-            }
-        }
-    }
-
-    private shuffleDeck(): void {
-        if (!this.deck) {
-            // throw error
-            console.log('Deck is empty');
-        }
-
-        const deck = this.deck;
-
-        // modified set
-        for (let i =  deck.length - 1; i > 0; i--) {
-           const x = Math.floor(Math.random() * (i + 1));
-           [deck[i], deck[x]] = [deck[x], deck[i]];
-       }
-
-       this.deck = deck;
-    }
-
     private setDeckSize(): void {
-        this.deckSize = this.deck.length;
+        this.deck.setDeckSize();
     }
 
     public dealInitialCards(): void {
@@ -134,7 +106,8 @@ export class Blackjack implements IGame {
             console.log('Deck is empty');
         }
         
-        const card = this.deck.pop();
+        const deck = this.deck.getDeck();
+        const card = deck.pop();
 
         if (card) {
             player.addCard(card);
@@ -147,7 +120,8 @@ export class Blackjack implements IGame {
         return {
             gameId: this.gameId,
             players: this.players,
-            deckSize: this.deckSize,
+            deckSize: this.deck.getDeckSize(),
+            deckSeed: this.deck.getDeckSeed(),
             turn: this.turn,
             gameStatus: this.gameStatus,
             gameEndStatus: this.gameEndStatus,

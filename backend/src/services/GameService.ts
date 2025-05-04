@@ -34,8 +34,8 @@ export class GameService implements IGameService {
         // save the game state
         this.games.set(gameId, game);
 
-        // DEBUG -- to be removed
-        console.log(this.games);
+        // todo: implement logging
+        console.log(game);
 
         return {
             gameId: gameId,
@@ -124,8 +124,9 @@ export class GameService implements IGameService {
            }
         }
 
-        // debug
+        // todo: implement logging
         console.log(this.gameAI);
+        console.log(game);
 
         return {
             gameId: gameId,
@@ -180,7 +181,11 @@ export class GameService implements IGameService {
                 // loss for AI
                 this.gameAI.incrementLosses();
             }
-         }
+        }
+
+        // todo: implement logging
+        console.log(this.gameAI);
+        console.log(game);
 
         return {
             gameId: gameId,
