@@ -13,16 +13,20 @@ export class Deck implements IDeck {
     public numberOfDecks: number = 6;
     
     constructor() {
+        this.resetDeck();
+    }
+
+    public resetDeck(): void {
+        this.deck = [];
         // create deck seed
         this.createDeckSeed();
-        
         // create deck
         for (let i = 0; i < this.numberOfDecks; i++) {
             this.createDeck();
         }
-
+        // shuffle deck
         this.shuffleDeck();
-        // update this.numberOfCardsInDeck
+        // update deck size
         this.setDeckSize();
     }
 
@@ -49,6 +53,11 @@ export class Deck implements IDeck {
     }
 
     public setDeckSize(): void {
+        // re-shuffle if deck size reaches < 25% threshold
+        if (this.deck.length < 90) {
+            this.resetDeck();
+        }
+
         this.numberOfCardsInDeck = this.deck.length;
     }
 
