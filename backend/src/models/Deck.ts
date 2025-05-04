@@ -10,7 +10,7 @@ export class Deck implements IDeck {
 
     public numberOfCardsPerDeck: number = 52;
     public numberOfCardsInDeck: number = 0;
-    public numberOfDecks: number = 1;    
+    public numberOfDecks: number = 6;
     
     constructor() {
         // create deck seed
