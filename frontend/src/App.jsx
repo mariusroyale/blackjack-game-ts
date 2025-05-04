@@ -317,6 +317,64 @@ export default function App() {
     );
   }
 
+
+
+  // const getPlayerStatsV2 = (player) => {
+  //   if (!player.stats) {
+  //     return null;
+  //   }
+  
+  //   return (
+  //     <div className="stat-box">
+  //       <div className="stat-value">{player.stats.wins}</div>
+  //       <div className="stat-label">🏆Wins</div>
+
+  //       <div className="stat-value">{player.stats.totalGames}</div>
+  //       <div className="stat-label">🎮Total Games</div>
+
+  //       <div className="stat-value">{player.stats.winPercentage}</div>
+  //       <div className="stat-label">📊 Win %</div>
+
+  //       <div className="stat-value">{player.stats.highestWinStreak}</div>
+  //       <div className="stat-label">🔥 Highest Win Streak</div>
+
+  //       <div className="stat-value">{player.stats.currentWinStreak}</div>
+  //       <div className="stat-label">📈 Current Win Streak</div>
+  //     </div>
+  //   );
+  // };
+
+  const getPlayerStats = (player) => {
+    if (!player.stats) {
+      return null;
+    }
+  
+    return (
+      <div className="stats">
+        <div className="stats-item">
+          <span>🏆Wins</span>
+          <span>{player.stats.wins}</span>
+        </div>
+        <div className="stats-item">
+          <span>🎮Total Games</span>
+          <span>{player.stats.totalGames}</span>
+        </div>
+        <div className="stats-item">
+          <span>📊 Win %</span>
+          <span>{player.stats.winPercentage}</span>
+        </div>
+        {/* <div className="stats-item">
+          <span>🔥 Highest Win Streak</span>
+          <span>{player.stats.highestWinStreak}</span>
+        </div>
+        <div className="stats-item">
+          <span>📈 Current Win Streak</span>
+          <span>{player.stats.currentWinStreak}</span>
+        </div> */}
+      </div>
+    );
+  };
+
   return (
     <div className="app">
       <ThemeSelector />
@@ -416,6 +474,7 @@ export default function App() {
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[1].type && " Wins!🏆"}
             </h2>
               <div className="cards">{renderCards(game.players[1].hand)}</div>
+              {/* {getPlayerStats(game.players[1])} */}
             </div>
             <div className="hand">
             <h2
@@ -429,6 +488,7 @@ export default function App() {
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[0].type && " Wins! 🏆"}
             </h2>
               <div className="cards">{renderCards(game.players[0].hand)}</div>
+              {getPlayerStats(game.players[0])}
             </div>
           </div>
           <div className="controls">
