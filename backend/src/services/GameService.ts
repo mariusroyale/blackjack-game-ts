@@ -2,33 +2,59 @@ import { IGameService } from "../interfaces/GameService";
 import { IGameState } from "../interfaces/GameState";
 import { Blackjack } from "../models/Blackjack";
 import { Player } from "../models/Player";
-import { PlayerType } from "../interfaces/Player";
+import { IPlayer, PlayerType } from "../interfaces/Player";
 import { GameAI } from "../models/GameAI";
 import { IGame } from "../interfaces/Game";
+import { PlayerStats } from "../models/PlayerStats";
 import { Deck } from "../models/Deck";
+import { createHash } from 'crypto';
 
 export class GameService implements IGameService {
     private games = new Map<string, Blackjack>();
-    private gameAI: GameAI;
-    private deck: Deck;
+    private playerStats = new Map<string, PlayerStats>();
+    private gameAI!: GameAI;
+    private decks = new Map<string, Deck>();
 
     constructor() {
-        this.deck = new Deck();
-        this.gameAI = new GameAI(new Blackjack(this.deck));
 
-        this.deck.getDeck().forEach((card, index) => {
-            console.log(`${index}: ${card.rank} of ${card.suit}`);
-        });
     }
 
     public createGame(playersData: { playerName: string, type: PlayerType }[]): { gameId: string; state: IGameState } {
-        const game = new Blackjack(this.deck);
+        // initialize deck instance
+        const playersDataString = JSON.stringify(playersData);
+        const deckHash = createHash('sha256').update(playersDataString).digest('hex');
+
+        let deck = this.decks.get(deckHash);
+
+        if (!deck) {
+            deck = new Deck();
+            this.decks.set(deckHash, deck);
+        }
+
+        // initialize game AI instance
+        const gameAI = this.gameAI;
+
+        if (!gameAI) {
+            const newGameAI = new GameAI(new Blackjack(this.decks.get(deckHash)!));
+            this.gameAI = newGameAI;
+        }
+
+        // initialize game instance
+        const game = new Blackjack(deck);
         const gameId = game.getGameId();
 
         // adding players
         playersData.forEach((playerData) => {
+            // get or create the stats
+            let playerStats =  this.playerStats.get(playerData.playerName);
+            
+            if (!playerStats) {
+                playerStats = new PlayerStats();
+                this.playerStats.set(playerData.playerName, playerStats);
+            }
+
             const { playerName, type } = playerData;
-            const player = new Player(playerName, type);
+            const player = new Player(playerName, type, playerStats);
             game.addPlayer(player);
         });
 

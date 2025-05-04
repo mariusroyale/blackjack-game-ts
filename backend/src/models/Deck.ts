@@ -2,6 +2,7 @@ import { IDeck } from "../interfaces/Deck";
 import { ICard, Rank, Suit } from "../interfaces/Card";
 import { Card, SUITS, RANKS } from "./Card";
 import { createHash, randomBytes  } from "crypto";
+import { PlayerType } from "../interfaces/Player";
 import seedrandom from 'seedrandom';
 
 export class Deck implements IDeck {
@@ -96,5 +97,10 @@ export class Deck implements IDeck {
 
     public getDeck(): ICard[] {
         return this.deck;
+    }
+
+    public getDeckHashWithPlayersData(playersData: { playerName: string, type: PlayerType }[]): string {
+        const playersDataString = JSON.stringify(playersData);
+        return createHash('sha256').update(playersDataString).digest('hex');
     }
 }

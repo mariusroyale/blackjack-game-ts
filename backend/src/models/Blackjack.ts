@@ -90,6 +90,17 @@ export class Blackjack implements IGame {
         return player;
     }
 
+    public getPlayerByType(playerType: PlayerType): IPlayer | null {
+        const players = this.getPlayers();
+        const player = players.find(player => player.getType() === playerType);
+
+        if (!player) {
+            return null;
+        }
+        
+        return player;
+    }
+
     public hit(player: IPlayer): void {
         this.drawCard(player);
         this.updatePlayerScore(player);
@@ -175,14 +186,25 @@ export class Blackjack implements IGame {
     }
 
     public checkWinner(): void {
+        const player = this.getPlayerByType('player');
+        const dealer = this.getPlayerByType('dealer');
+
+        if (!player || !dealer) {
+            return;
+        }
+
         // check for bust first
         if (this.gameStats.playerScore.player > this.getBlackjackValue()) {
             this.endGame('bust', 'dealer');
+            dealer.stats.recordWin();
+            player.stats.recordLoss();
             return;
         }
 
         if (this.gameStats.playerScore.dealer > this.getBlackjackValue()) {
             this.endGame('bust', 'player');
+            dealer.stats.recordLoss();
+            player.stats.recordWin();
             return;
         }
 
@@ -190,25 +212,35 @@ export class Blackjack implements IGame {
         if (this.gameStats.playerEndedTurn && this.gameStats.dealerEndedTurn) {
             if (this.gameStats.playerScore.player === this.gameStats.playerScore.dealer) {
                 this.endGame('draw', '');
+                dealer.stats.recordDraw();
+                player.stats.recordDraw();
                 return;
             }
     
             if (this.gameStats.playerScore.player === this.getBlackjackValue()) {
                 this.endGame('blackjack', 'player');
+                dealer.stats.recordLoss();
+                player.stats.recordWin();
                 return;
             }
     
             if (this.gameStats.playerScore.dealer === this.getBlackjackValue()) {
                 this.endGame('blackjack', 'dealer');
+                dealer.stats.recordWin();
+                player.stats.recordLoss();
                 return;
             }
             
             if (this.gameStats.playerScore.player > this.gameStats.playerScore.dealer) {
                 this.endGame('highScore', 'player');
+                dealer.stats.recordLoss();
+                player.stats.recordWin();
                 return;
             }
 
             this.endGame('highScore', 'dealer');
+            dealer.stats.recordWin();
+            player.stats.recordLoss();
         }
     }
 
