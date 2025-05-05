@@ -217,7 +217,15 @@ export default function App() {
 
   const resetGame = () => {
     setFadeOutCards(true);
-    game.gameStats.winner = '';
+    
+    // Clear winner properly by cloning and updating state
+    setGame(prevGame => ({
+      ...prevGame,
+      gameStats: {
+        ...prevGame.gameStats,
+        winner: ''
+      }
+    }));
   
     setTimeout(() => {
       setFadeOutCards(false);
