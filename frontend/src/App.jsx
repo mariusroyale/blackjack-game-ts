@@ -25,6 +25,7 @@ export default function App() {
   const [showSpinner, setShowSpinner] = useState(false);
   const spinnerTimeoutRef = useRef(null);
   const loadingInProgress = useRef(false);
+  const [fadeOutCards, setFadeOutCards] = useState(false);
   const dealerNames = [
     "Ace Dealer Bot",
     // "Queen of Clubs",
@@ -215,10 +216,15 @@ export default function App() {
   };
 
   const resetGame = () => {
-    startGame();
+    setFadeOutCards(true);
+  
+    setTimeout(() => {
+      setFadeOutCards(false);
+      startGame();
+    }, 800);
   };
 
-  const renderCards = (hand) =>
+  const renderCards = (hand, fadeOut = false) =>
     hand.map((card, idx) => {
       const cardColor = card.suit === "Hearts" || card.suit === "Diamonds" ? "red" : "black";
       const suitClass = cardColor === "red" ? "card-red-suit" : "card-black-suit";
@@ -233,7 +239,7 @@ export default function App() {
           }}
         >
           <div
-            className={`card deal-in ${suitClass}`}
+            className={`card deal-in ${suitClass} ${fadeOut ? 'card-fade-out' : ''}`}
             style={{
               color: cardColor,
               animationDelay: `${idx * 100}ms`,
@@ -458,7 +464,7 @@ export default function App() {
               {game.players[1].name}
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[1].type && " Wins!🏆"}
             </h2>
-              <div className="cards">{renderCards(game.players[1].hand)}</div>
+              <div className="cards">{renderCards(game.players[1].hand, fadeOutCards)}</div>
               {/* {getPlayerStats(game.players[1])} */}
             </div>
             <div className="hand">
@@ -472,7 +478,7 @@ export default function App() {
               {game.players[0].name}
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[0].type && " Wins! 🏆"}
             </h2>
-              <div className="cards">{renderCards(game.players[0].hand)}</div>
+              <div className="cards">{renderCards(game.players[0].hand, fadeOutCards)}</div>
               <div className="controls">
                 {game.gameStatus !== "completed" && (
                   <>
