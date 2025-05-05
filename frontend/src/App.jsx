@@ -217,6 +217,7 @@ export default function App() {
 
   const resetGame = () => {
     setFadeOutCards(true);
+    game.gameStats.winner = '';
   
     setTimeout(() => {
       setFadeOutCards(false);
