@@ -277,7 +277,7 @@ export default function App() {
     setLoading(true);
     spinnerTimeoutRef.current = setTimeout(() => {
       setShowSpinner(true);
-    }, 200);
+    }, 500);
   }
 
   const clearLoadingScreen = () => {
