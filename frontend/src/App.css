@@ -28,7 +28,7 @@ h1 {
 
 .app button {
   width: 200px;
-  height: 44px;
+  height: 40px;
   padding: 10px;
   font-size: 16px;
   border-radius: 8px;
@@ -40,6 +40,10 @@ h1 {
   margin: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.app button-actions {
+  width: 100px;
 }
 
 .app button:hover {
@@ -66,15 +70,6 @@ h1 {
   text-align: center;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-top: 10px;
-}
-
 @keyframes cardEnter {
   from {
     opacity: 0;
@@ -86,29 +81,58 @@ h1 {
   }
 }
 
-.card {
-  background: white;
-  width: 110px;
-  height: 150px;
-  border-radius: 12px;
-  box-shadow: 3px 3px 10px #000;
+.card-stack {
   position: relative;
+  height: 150px; /* adjust based on your layout */
+  display: flex;
+}
+
+.cards {
+  position: relative;
+  height: 160px;
+  margin-left: -100px;
+}
+
+.card-wrapper {
+  position: absolute;
+  top: 0;
+  transition: left 0.3s ease;
+}
+
+.card {
+  width: 100px;
+  height: 140px;
+  border-radius: 8px;
+  border: 2px solid #222;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  font-weight: bold;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  font-weight: bold;
-  font-size: 28px;
-  padding: 4px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  opacity: 0;  /* Cards start hidden */
-  animation: cardEnter 0.5s ease-out forwards;
-  cursor: default;
+  justify-content: center;
   user-select: none;
 }
 
+.card-red-suit {
+  color: red;
+}
+
+.card-black-suit {
+  color: black;
+}
+
+.card-value {
+  font-size: 2rem;
+}
+
+.card-suit {
+  font-size: 1.8rem;
+}
+
 .card:hover {
-  transform: translateY(-15px) scale(1.08) rotate(-1.5deg);
+  transform: translateY(-8px) scale(1.08) rotate(-1.5deg);
   box-shadow: 0 14px 26px rgba(0, 0, 0, 0.55);
   filter: brightness(1.2);
 }
@@ -130,19 +154,24 @@ h1 {
 }
 
 .controls button {
+  width: 100px;
   padding: 10px 25px;
   margin: 0 8px;
-  background-color: #0069d9;
-  border: none;
-  border-radius: 8px;
-  color: white;
+  background: rgba(255, 217, 0, 0.877);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   font-size: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); /* Safari support */
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .controls button:hover {
-  background-color: #0053b3;
+  background: rgb(252, 223, 59);
+  transform: scale(1.03);
 }
 
 .controls button:disabled {
@@ -224,9 +253,10 @@ h1 {
   box-shadow: 0 0 20px gold;
 }
 
-.new-game-button {
+.new-game-button button {
   margin-top: 16px;
   text-align: center;
+  width: 200px !important;
 }
 
 .input-error {

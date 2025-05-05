@@ -222,25 +222,39 @@ export default function App() {
     hand.map((card, idx) => {
       const cardColor = card.suit === "Hearts" || card.suit === "Diamonds" ? "red" : "black";
       const suitClass = cardColor === "red" ? "card-red-suit" : "card-black-suit";
-      
+  
       return (
         <div
           key={idx}
-          className={`card deal-in ${suitClass}`}
+          className="card-wrapper"
           style={{
-            color: cardColor,
-            animationDelay: `${idx * 100}ms`, // staggered effect
+            left: `${idx * 30}px`,
+            zIndex: idx,
           }}
         >
-          <div className="card-value">
-            {card.rank === "10" ? "10" : card.rank[0]}
-          </div>
-          <div className="card-suit">
-            {{ Hearts: "♥", Diamonds: "♦", Clubs: "♣", Spades: "♠" }[card.suit]}
+          <div
+            className={`card deal-in ${suitClass}`}
+            style={{
+              color: cardColor,
+              animationDelay: `${idx * 100}ms`,
+            }}
+          >
+            <div className="card-value">
+              {card.rank === "10" ? "10" : card.rank[0]}
+            </div>
+            <div className="card-suit">
+              {{
+                Hearts: "♥",
+                Diamonds: "♦",
+                Clubs: "♣",
+                Spades: "♠",
+              }[card.suit]}
+            </div>
           </div>
         </div>
       );
     });
+  
 
   const handleStartGame = () => {
     if (!playerName.trim()) {
@@ -314,33 +328,6 @@ export default function App() {
       </div>
     );
   }
-
-
-
-  // const getPlayerStatsV2 = (player) => {
-  //   if (!player.stats) {
-  //     return null;
-  //   }
-  
-  //   return (
-  //     <div className="stat-box">
-  //       <div className="stat-value">{player.stats.wins}</div>
-  //       <div className="stat-label">🏆Wins</div>
-
-  //       <div className="stat-value">{player.stats.totalGames}</div>
-  //       <div className="stat-label">🎮Total Games</div>
-
-  //       <div className="stat-value">{player.stats.winPercentage}</div>
-  //       <div className="stat-label">📊 Win %</div>
-
-  //       <div className="stat-value">{player.stats.highestWinStreak}</div>
-  //       <div className="stat-label">🔥 Highest Win Streak</div>
-
-  //       <div className="stat-value">{player.stats.currentWinStreak}</div>
-  //       <div className="stat-label">📈 Current Win Streak</div>
-  //     </div>
-  //   );
-  // };
 
   const getPlayerStats = (player) => {
     if (!player.stats) {
@@ -486,24 +473,25 @@ export default function App() {
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[0].type && " Wins! 🏆"}
             </h2>
               <div className="cards">{renderCards(game.players[0].hand)}</div>
+              <div className="controls">
+                {game.gameStatus !== "completed" && (
+                  <>
+                    <button onClick={() => hit(game.players[0])}>Hit</button>
+                    <span> 🎲 </span>
+                    <button onClick={stand}>Stand</button>
+                  </>
+                )}
+                
+                {game.gameStatus === "completed" && (
+                  <div className="new-game-button">
+                    <button onClick={resetGame}>Start New Game</button>
+                  </div>
+                )}
+                {/* <button disabled>Double</button>
+                <button disabled>Split</button> */}
+              </div>
               {getPlayerStats(game.players[0])}
             </div>
-          </div>
-          <div className="controls">
-            {game.gameStatus !== "completed" && (
-              <>
-                <button onClick={() => hit(game.players[0])}>Hit</button>
-                <button onClick={stand}>Stand</button>
-              </>
-            )}
-            
-            {game.gameStatus === "completed" && (
-              <div className="new-game-button">
-                <button onClick={resetGame}>Start New Game</button>
-              </div>
-            )}
-            {/* <button disabled>Double</button>
-            <button disabled>Split</button> */}
           </div>
         </div>
       )}
