@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "Node",
+      "jsx": "react-jsx",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "types": ["node", "vitest/globals"]
+    },
+    "include": [
+      "src/**/*",
+      "src/tests/**/*" // Make sure to include your test files
+    ]
+  }

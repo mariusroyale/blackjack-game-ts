@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
+import { getRandomDealerName } from './shared/utils/getRandomDealerName';
+
 // Toggle mock mode
 const USE_MOCK = false;
 
@@ -26,27 +28,7 @@ export default function App() {
   const spinnerTimeoutRef = useRef(null);
   const loadingInProgress = useRef(false);
   const [fadeOutCards, setFadeOutCards] = useState(false);
-  const dealerNames = [
-    "Ace Dealer Bot",
-    // "Queen of Clubs",
-    // "Bot Vegas",
-    // "CardMaster 9000",
-    // "Dealertron",
-    // "The Shuffle Machine",
-    "LuckyByte",
-    "Blackjackzilla",
-    // "Neon Jack",
-    // "The House Whisperer",
-    // "VegasPulse",
-    // "Quantum Dealer",
-    // "Chips McBot",
-    // "Croupier X",
-    // "JackBot Royale",
-    // "Shufflemancer",
-    // "HighRollerX",
-    "The Algorithm",
-    "Mr. CardSharp",
-  ];
+
   const API_BASE_URL = process.env.NODE_ENV === "production" 
   ? "https://blackjack-game-ts.onrender.com"
   : "http://localhost:3000";
@@ -74,7 +56,7 @@ export default function App() {
       let currentDealerName = dealerName;
 
       if (!dealerName) {
-        currentDealerName = dealerNames[Math.floor(Math.random() * dealerNames.length)];
+        currentDealerName = getRandomDealerName();
         setDealerName(currentDealerName);
       }
 
