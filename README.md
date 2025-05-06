@@ -373,8 +373,8 @@ Player ends their turn; the dealer will automatically play.
 
 ### 🎮 Get an existing game state
 
-**GET** `/api/game/:id`  
-Get an existing instance of a game by id. Refer to `/api/game/startGame` for obtaining the game id.
+**GET** `/api/games/:id`  
+Get an existing instance of a game by id. Refer to `/api/games` for obtaining the game id.
 
 #### Request Body
 ```json
