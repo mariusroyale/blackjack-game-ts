@@ -7,7 +7,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "test": "jest",
+    "test": "jest --verbose",
     "test:coverage": "jest --coverage"
   },
   "author": "Marius",

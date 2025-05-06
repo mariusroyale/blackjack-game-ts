@@ -35,7 +35,7 @@ describe('GameService', () => {
     });
 
     test('should perform stand action', () => {
-        const { gameId, state } = gameService.actionHit(gameIdToTest, playerData[0])!;
+        const { gameId, state } = gameService.actionStand(gameIdToTest, playerData[0])!;
         expect(gameId).toBeDefined();
         expect(gameId).not.toBeNull();
         expect(state).toBeDefined();
