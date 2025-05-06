@@ -1,5 +1,7 @@
 # ♠️ Blackjack Game (TypeScript + Express)
 
+[![Run Unit Tests - Backend](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/test-backend.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/test-backend.yml)
+
 A lightweight, server-side Blackjack game API built with **TypeScript** and **Express**. Designed for experimentation, learning, and extension, the backend handles game state, deck logic, player turns, and actions like hitting or standing — all exposed via a simple RESTful interface.
 
 ---

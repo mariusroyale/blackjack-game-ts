@@ -1,5 +1,7 @@
 ## 🆕 Recent Updates
 
+[![Run Unit Tests - Backend](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/test-backend.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/test-backend.yml)
+
 ### May 6, 2025
 - 🧪 Added **unit tests** for Gaming Service using jest testing suite
 
