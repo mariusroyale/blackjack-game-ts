@@ -1,6 +1,6 @@
 # Run Unit Tests
 
-name: Run Unit Tests
+name: Run Unit Tests - Backend
 
 on:
   push:
