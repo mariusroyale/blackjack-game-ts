@@ -1,5 +1,8 @@
 ## 🆕 Recent Updates
 
+### May 6, 2025
+- 🧪 Added **unit tests** for Gaming Service using jest testing suite
+
 ### May 5, 2025
 - ♠️ Switched from 1-deck to a 6-deck shoe (300+ cards) for realistic gameplay
 - ✅ Added **provable fairness** using deck seed hashes and per-card nonces (deck index)

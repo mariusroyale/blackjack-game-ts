@@ -82,7 +82,7 @@ npm start
 
 ### 🎮 Create a New Game
 
-**POST** `/api/game/startGame`  
+**POST** `/api/games`  
 Initializes a new Blackjack game.
 
 #### Request Body
@@ -114,28 +114,63 @@ Initializes a new Blackjack game.
                 "hand": [
                     {
                         "suit": "Diamonds",
-                        "rank": "9"
+                        "rank": "4",
+                        "nonce": 311
                     },
                     {
-                        "suit": "Clubs",
-                        "rank": "Ace"
+                        "suit": "Spades",
+                        "rank": "Jack",
+                        "nonce": 310
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             },
             {
-                "name": "Ace Dealer Bot",
+                "name": "Blackjackzilla",
                 "type": "dealer",
                 "hand": [
                     {
                         "suit": "Clubs",
-                        "rank": "8"
+                        "rank": "10",
+                        "nonce": 309
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             }
         ],
-        "deckSize": 49,
+        "deckSize": 309,
+        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
         "turn": "player",
-        "gameStatus": "active"
+        "gameStatus": "active",
+        "gameEndStatus": "",
+        "gameStats": {
+            "turnsPlayed": 0,
+            "playerTurnsPlayed": 0,
+            "playerEndedTurn": false,
+            "dealerTurnsPlayed": 0,
+            "dealerEndedTurn": false,
+            "winner": "",
+            "playerScore": {
+                "player": 14,
+                "dealer": 10
+            }
+        }
     }
 }
 ```
@@ -144,7 +179,7 @@ Initializes a new Blackjack game.
 
 ### ✋ Hit
 
-**POST** `/api/game/:id/hit`  
+**POST** `/api/games/:id/hit`  
 Player chooses to draw another card.
 
 #### Request Body
@@ -165,37 +200,73 @@ Player chooses to draw another card.
         "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
         "players": [
             {
-                "name": "Marius",
+                "name": "M",
                 "type": "player",
                 "hand": [
                     {
                         "suit": "Diamonds",
-                        "rank": "9"
+                        "rank": "4",
+                        "nonce": 311
                     },
                     {
-                        "suit": "Clubs",
-                        "rank": "Ace"
+                        "suit": "Spades",
+                        "rank": "Jack",
+                        "nonce": 310
                     },
                     {
                         "suit": "Hearts",
-                        "rank": "Queen"
+                        "rank": "Ace",
+                        "nonce": 308
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             },
             {
-                "name": "Ace Dealer Bot",
+                "name": "Blackjackzilla",
                 "type": "dealer",
                 "hand": [
                     {
                         "suit": "Clubs",
-                        "rank": "8"
+                        "rank": "10",
+                        "nonce": 309
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             }
         ],
-        "deckSize": 48,
-        "turn": "dealer",
-        "gameStatus": "active"
+        "deckSize": 308,
+        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
+        "turn": "player",
+        "gameStatus": "active",
+        "gameEndStatus": "",
+        "gameStats": {
+            "turnsPlayed": 0,
+            "playerTurnsPlayed": 0,
+            "playerEndedTurn": false,
+            "dealerTurnsPlayed": 0,
+            "dealerEndedTurn": false,
+            "winner": "",
+            "playerScore": {
+                "player": 15,
+                "dealer": 10
+            }
+        }
     }
 }
 ```
@@ -204,7 +275,7 @@ Player chooses to draw another card.
 
 ### 🤚 Stand
 
-**POST** `/api/game/:id/stand`  
+**POST** `/api/games/:id/stand`  
 Player ends their turn; the dealer will automatically play.
 
 #### Request Body
@@ -225,45 +296,73 @@ Player ends their turn; the dealer will automatically play.
         "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
         "players": [
             {
-                "name": "Marius",
+                "name": "M",
                 "type": "player",
                 "hand": [
                     {
                         "suit": "Diamonds",
-                        "rank": "9"
+                        "rank": "4",
+                        "nonce": 311
                     },
                     {
-                        "suit": "Clubs",
-                        "rank": "Ace"
+                        "suit": "Spades",
+                        "rank": "Jack",
+                        "nonce": 310
                     },
                     {
                         "suit": "Hearts",
-                        "rank": "Queen"
+                        "rank": "Ace",
+                        "nonce": 308
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             },
             {
-                "name": "Ace Dealer Bot",
+                "name": "Blackjackzilla",
                 "type": "dealer",
                 "hand": [
                     {
                         "suit": "Clubs",
-                        "rank": "8"
-                    },
-                    {
-                        "suit": "Diamonds",
-                        "rank": "6"
-                    },
-                    {
-                        "suit": "Spades",
-                        "rank": "Ace"
+                        "rank": "10",
+                        "nonce": 309
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             }
         ],
-        "deckSize": 46,
-        "turn": "player",
-        "gameStatus": "finished"
+        "deckSize": 308,
+        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
+        "turn": "dealer",
+        "gameStatus": "active",
+        "gameEndStatus": "",
+        "gameStats": {
+            "turnsPlayed": 1,
+            "playerTurnsPlayed": 1,
+            "playerEndedTurn": true,
+            "dealerTurnsPlayed": 0,
+            "dealerEndedTurn": false,
+            "winner": "",
+            "playerScore": {
+                "player": 15,
+                "dealer": 10
+            }
+        }
     }
 }
 ```
@@ -288,33 +387,78 @@ Get an existing instance of a game by id. Refer to `/api/game/startGame` for obt
         "gameId": "88cfde81-b9a9-4167-a23c-9237a7669a7c",
         "players": [
             {
-                "name": "Marius",
+                "name": "M",
                 "type": "player",
                 "hand": [
                     {
-                        "suit": "Clubs",
-                        "rank": "Queen"
+                        "suit": "Diamonds",
+                        "rank": "4",
+                        "nonce": 311
                     },
                     {
-                        "suit": "Diamonds",
-                        "rank": "2"
+                        "suit": "Spades",
+                        "rank": "Jack",
+                        "nonce": 310
+                    },
+                    {
+                        "suit": "Hearts",
+                        "rank": "Ace",
+                        "nonce": 308
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 0,
+                    "losses": 1,
+                    "draws": 0,
+                    "totalGames": 1,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                }
             },
             {
-                "name": "Ace Bot Dealer",
+                "name": "Blackjackzilla",
                 "type": "dealer",
                 "hand": [
                     {
-                        "suit": "Diamonds",
-                        "rank": "7"
+                        "suit": "Clubs",
+                        "rank": "10",
+                        "nonce": 309
+                    },
+                    {
+                        "suit": "Clubs",
+                        "rank": "8",
+                        "nonce": 307
                     }
-                ]
+                ],
+                "stats": {
+                    "wins": 1,
+                    "losses": 0,
+                    "draws": 0,
+                    "totalGames": 1,
+                    "winPercentage": 100,
+                    "highestWinStreak": 1,
+                    "currentWinStreak": 1
+                }
             }
         ],
-        "deckSize": 49,
+        "deckSize": 307,
+        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
         "turn": "player",
-        "gameStatus": "active"
+        "gameStatus": "completed",
+        "gameEndStatus": "highScore",
+        "gameStats": {
+            "turnsPlayed": 2,
+            "playerTurnsPlayed": 1,
+            "playerEndedTurn": true,
+            "dealerTurnsPlayed": 1,
+            "dealerEndedTurn": true,
+            "winner": "dealer",
+            "playerScore": {
+                "player": 15,
+                "dealer": 18
+            }
+        }
     }
 }
 ```
@@ -324,7 +468,7 @@ Get an existing instance of a game by id. Refer to `/api/game/startGame` for obt
 ## 🧪 Example cURL to create a game
 
 ```bash
-curl -X POST http://localhost:3000/api/game/startGame \
+curl -X POST http://localhost:3000/api/games \
   -H "Content-Type: application/json" \
   -d '{"playerData":[{"playerName":"Marius","type":"player"}, {"playerName":"Ace Dealer Bot","type":"dealer"}]}'
 ```
