@@ -1,6 +1,5 @@
 import { GameService } from "../../services/GameService";
 import { PlayerType } from "../../interfaces/Player";
-import { Blackjack } from "../../models/Blackjack";
 
 describe('GameService', () => {
     let gameService: GameService;
