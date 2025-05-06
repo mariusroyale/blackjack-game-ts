@@ -5,12 +5,20 @@ name: Run Unit Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'backend/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'backend/**'
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
 
     steps:
     - name: Checkout code
