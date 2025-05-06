@@ -5,8 +5,10 @@ export interface ICard {
     suit: Suit;
     rank: Rank;
     nonce: number | null;
+    id: string;
 
     getValue(): number;
     getHighAceValue(): number;
     getLowAceValue(): number;
+    getId(): string;
 }

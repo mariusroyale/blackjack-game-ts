@@ -14,17 +14,20 @@ export class Deck implements IDeck {
     public numberOfCardsInDeck: number = 0;
     public numberOfDecks: number = 6;
     
-    constructor() {
-        this.resetDeck();
+    constructor(deckSeed: string = '', shuffleDeck: boolean = true) {
+        this.resetDeck(deckSeed, shuffleDeck);
     }
 
-    public resetDeck(): void {
+    public resetDeck(deckSeed: string = '', shuffleDeck: boolean = true): void {
         this.deck = [];
+        // create deck seed if not provided
+        if (!deckSeed) {
+            deckSeed = this.createDeckSeed();
+        }
+        // set the deckSeed
+        this.deckSeed = deckSeed;
         // create deck seed
         this.createDeckSeed();
-
-        // this.deckSeed = '7e0f301b3abb2e2124f65ec8951267f9';
-
         // create deck seed hash
         this.createDeckSeedHash();
         // create deck
@@ -32,7 +35,9 @@ export class Deck implements IDeck {
             this.createDeck();
         }
         // shuffle deck
-        this.shuffleDeck();
+        if (shuffleDeck) {
+            this.shuffleDeck();
+        }
         // update deck size
         this.setDeckSize();
     }
@@ -79,8 +84,8 @@ export class Deck implements IDeck {
         return this.numberOfCardsInDeck;
     }
 
-    private createDeckSeed(): void {
-        this.deckSeed = randomBytes(16).toString('hex');
+    private createDeckSeed(): string {
+        return randomBytes(16).toString('hex');
     }
 
     public getDeckSeed(): string {

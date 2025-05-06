@@ -1,4 +1,5 @@
 import { Suit, Rank, ICard } from '../interfaces/Card';
+import { v4 as uuidv4 } from 'uuid';
 
 export enum CardRank {
     Ace = 'Ace',
@@ -14,11 +15,13 @@ export class Card implements ICard {
     public suit: Suit;
     public rank: Rank;
     public nonce: number | null;
+    public id: string;
 
     constructor(suit: Suit, rank: Rank) {
         this.suit = suit;
         this.rank = rank;
         this.nonce = null;
+        this.id = uuidv4();
     }
 
     public getValue(): number {
@@ -35,5 +38,9 @@ export class Card implements ICard {
 
     public getLowAceValue(): number {
         return 1;
+    }
+
+    public getId(): string {
+        return this.id;
     }
 }

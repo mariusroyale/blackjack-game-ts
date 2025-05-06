@@ -9,6 +9,7 @@ export interface IDeck {
 
     createDeck(): void;
     shuffleDeck(): void;
+    resetDeck(deckSeed: string, shuffleDeck: boolean): void;
     setDeckSize(): void;
     getDeckSize(): number;
     getDeck(): ICard[];
