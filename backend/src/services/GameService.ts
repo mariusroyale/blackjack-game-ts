@@ -15,10 +15,6 @@ export class GameService implements IGameService {
     private gameAI!: GameAI;
     private decks = new Map<string, Deck>();
 
-    constructor() {
-
-    }
-
     public createGame(playersData: { playerName: string, type: PlayerType }[]): { gameId: string; state: IGameState } {
         // initialize deck instance
         const playersDataString = JSON.stringify(playersData);
