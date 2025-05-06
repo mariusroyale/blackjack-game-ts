@@ -1,5 +1,5 @@
 # Run Frontend Tests
-name: Backend Tests
+name: Frontend Tests
 
 on:
   push:
