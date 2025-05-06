@@ -32,12 +32,10 @@ export default function App() {
     // "Bot Vegas",
     // "CardMaster 9000",
     // "Dealertron",
-    // "King of Spades",
     // "The Shuffle Machine",
-    // "LuckyByte",
-    // "Blackjackzilla",
+    "LuckyByte",
+    "Blackjackzilla",
     // "Neon Jack",
-    // "Deala AI-47",
     // "The House Whisperer",
     // "VegasPulse",
     // "Quantum Dealer",
@@ -46,9 +44,8 @@ export default function App() {
     // "JackBot Royale",
     // "Shufflemancer",
     // "HighRollerX",
-    // "The Algorithm",
-    // "Mr. CardSharp",
-    // "Bot Sinatra"
+    "The Algorithm",
+    "Mr. CardSharp",
   ];
   const API_BASE_URL = process.env.NODE_ENV === "production" 
   ? "https://blackjack-game-ts.onrender.com"
@@ -229,6 +226,14 @@ export default function App() {
   
     setTimeout(() => {
       setFadeOutCards(false);
+      // Reset player hands after fadeout
+      setGame(prevGame => ({
+        ...prevGame,
+        players: prevGame.players.map(player => ({
+          ...player,
+          hand: []
+        }))
+      }));
       startGame();
     }, 800);
   };
