@@ -2,6 +2,9 @@
 
 [![Backend Tests](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/backend-tests.yml) [![Frontend Tests](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/frontend-tests.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/frontend-tests.yml)
 
+### May 7, 2025
+- 🎴 Started major React App refactor, moving from jsx to tsx. The code will be componetized more. Part 1 is done.
+
 ### May 6, 2025
 - 🧪 Added **unit tests** for Gaming Service using jest testing suite
 - 🧪 Added **unit tests** for Frontend react app using vitest testing suite
