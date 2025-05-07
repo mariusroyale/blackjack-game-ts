@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-      "target": "ESNext",
-      "module": "ESNext",
+      "target": "es6",
+      "module": "esnext",
       "moduleResolution": "Node",
       "jsx": "react-jsx",
       "strict": true,
@@ -9,7 +9,7 @@
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
       "resolveJsonModule": true,
-      "types": ["node", "vitest/globals"]
+      "types": ["node", "vitest/globals", "react"]
     },
     "include": [
       "src/**/*",

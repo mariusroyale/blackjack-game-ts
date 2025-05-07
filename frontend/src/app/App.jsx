@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import "./App.css";
+import "../styles/App.css";
 
-import { getRandomDealerName } from './shared/utils/getRandomDealerName';
+import { getRandomDealerName } from '../shared/utils/getRandomDealerName';
 
 // Toggle mock mode
 const USE_MOCK = false;
