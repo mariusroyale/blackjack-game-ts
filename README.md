@@ -96,7 +96,7 @@ Initializes a new Blackjack game.
             "type": "player"
         },
         {
-            "playerName": "Ace Dealer Bot",
+            "playerName": "JackBot Royale",
             "type": "dealer"
         }
     ]
