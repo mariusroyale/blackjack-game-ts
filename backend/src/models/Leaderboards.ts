@@ -15,9 +15,12 @@ export class Leaderboards implements ILeaderboards {
     public highestWinStreak: number
     public dateCreated: Date
 
+    /**
+     * Creates a new instance of the Leaderboards class with the given data. If playerId is not provided, it is generated based on the playerName.
+     * @param {ILeaderboards} data - The data to initialize the instance with.
+     */
     public constructor({ id, playerId, playerName, totalGames, totalWinPoints, totalWins, totalLosses, highestWinStreak, dateCreated, winPercentage }: ILeaderboards) {
         this.id = id
-        this.playerId = playerId
         this.playerName = playerName
         this.totalGames = totalGames
         this.totalWinPoints = totalWinPoints
@@ -26,8 +29,14 @@ export class Leaderboards implements ILeaderboards {
         this.highestWinStreak = highestWinStreak
         this.dateCreated = dateCreated
         this.winPercentage = winPercentage
+
+        this.playerId = playerId || this.generatePlayerIdHash(this.playerName)
     }
 
+    /**
+     * Saves the leaderboard data to the database and returns the id of the newly inserted record. If the save fails, it returns undefined.
+     * @returns {Promise<number | undefined>}
+     */
     public async saveToDatabase(): Promise<number | undefined> {
         try {
             const result = await pgPool.query(`INSERT INTO leaderboards (player_id, player_name, total_games, total_win_points, total_wins, total_losses, highest_win_streak, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`, [
@@ -54,6 +63,11 @@ export class Leaderboards implements ILeaderboards {
         }
     }
 
+    /**
+     * Retrieves all leaderboard data from the database for the given date range.
+     * @param {DateRangeTypes} dateRange - The date range for which to retrieve leaderboard data. Options are "week" or "month".
+     * @returns {Promise<ILeaderboards[] | null>} - A promise that resolves to an array of leaderboard objects, or null if there was an error.
+     */
     public async getAllFromDatabase(dateRange: DateRangeTypes): Promise<ILeaderboards[] | null> {
 
         try {
@@ -82,5 +96,16 @@ export class Leaderboards implements ILeaderboards {
             console.log(error)
             return null
         }
+    }
+
+    /**
+     * Generates a SHA-256 hash based on a player's name, after trimming the name.
+     * This hash is used as a unique identifier for a player in the database.
+     * NOTE! Player name will be case sensitive, hence two players with same name but different cases will be treated as different players
+     * @param {string} playerName the name of the player
+     * @returns {string} a SHA-256 hash of the player's name
+     */
+    private generatePlayerIdHash(playerName: string): string {
+        return createHash('sha256').update(playerName.trim()).digest('hex')
     }
 }
