@@ -605,7 +605,9 @@ Save a leaderboards tracking event in database.
 
 #### Response
 ```json
-{ leaderboardsId: 1 } 
+{ 
+    "leaderboardsId": 1 
+} 
 ```
 
 ---
