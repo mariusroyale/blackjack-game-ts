@@ -1,6 +1,6 @@
-import { Leaderboards } from "../../models/Leaderboards";
-import { createHash, randomUUID  } from "crypto";
-import { pgPool } from "../../db/pgPool";
+import { Leaderboards } from "../../models/Leaderboards"
+import { createHash, randomUUID  } from "crypto"
+import { pgPool } from "../../db/pgPool"
 
 describe.skip("Leaderboards integration test", () => {
     let testPlayerName = `Marius_${randomUUID().slice(0, 8)}`
@@ -8,7 +8,7 @@ describe.skip("Leaderboards integration test", () => {
     afterAll(async () => {
         // await pgPool.query(`DELETE FROM leaderboards WHERE player_name = '${testPlayerName}'`)
         await pgPool.end()
-    });
+    })
 
     test("should save and retrieve leaderboard data", async () => {
         const leaderboardDefaults = {
@@ -39,5 +39,5 @@ describe.skip("Leaderboards integration test", () => {
         
         expect(marius).toBeDefined()
         expect(marius!.playerId).toBe(leaderboardDefaults.playerId)
-    });
-});
+    })
+})

@@ -1,7 +1,7 @@
-import { ICard } from "./Card";
-import { IPlayerStats } from "./PlayerStats";
+import { ICard } from "./Card"
+import { IPlayerStats } from "./PlayerStats"
 
-export type PlayerType = 'player' | 'dealer';
+export type PlayerType = 'player' | 'dealer'
 
 export interface IPlayer {
     id: string

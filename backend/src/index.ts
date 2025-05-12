@@ -1,10 +1,10 @@
-import app  from './app';
+import app  from './app'
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-});
+    console.log(`Server is running at http://localhost:${PORT}`)
+})
 
 app.get('/', (req, res) => {
     res.send(`
@@ -39,5 +39,5 @@ app.get('/', (req, res) => {
         <a href="https://github.com/mariusroyale/blackjack-game-ts" target="_blank">👉 Check out the game on GitHub</a>
       </body>
       </html>
-    `);
-  });
+    `)
+  })

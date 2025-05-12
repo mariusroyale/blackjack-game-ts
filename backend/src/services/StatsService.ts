@@ -1,7 +1,7 @@
-import { ILeaderboards } from "../interfaces/Leaderboards";
-import { IStatsService } from "../interfaces/StatsService";
-import { DateRangeTypes } from "../interfaces/Leaderboards";
-import { Leaderboards } from "../models/Leaderboards";
+import { ILeaderboards } from "../interfaces/Leaderboards"
+import { IStatsService } from "../interfaces/StatsService"
+import { DateRangeTypes } from "../interfaces/Leaderboards"
+import { Leaderboards } from "../models/Leaderboards"
 
 export class StatsService implements IStatsService {
     public leaderboards = new Map<string, ILeaderboards>()
