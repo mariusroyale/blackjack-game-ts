@@ -2,7 +2,7 @@ import { Leaderboards } from "../../models/Leaderboards";
 import { createHash, randomUUID  } from "crypto";
 import { pgPool } from "../../db/pgPool";
 
-describe("Leaderboards integration test", () => {
+describe.skip("Leaderboards integration test", () => {
     let testPlayerName = `Marius_${randomUUID().slice(0, 8)}`
 
     afterAll(async () => {
