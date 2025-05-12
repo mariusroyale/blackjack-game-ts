@@ -1,9 +1,10 @@
 import express, { Request, Response } from 'express';
 import { GameService } from '../services/GameService';
+import { StatsService } from '../services/StatsService';
 
 const gameRoutes = express.Router();
 // We place GameService here because we want to persist to memory the games map data
-const gameService = new GameService(); 
+const gameService = new GameService();
 
 gameRoutes.get('/games/:id', (req: Request, res: Response) => {
     const { id } = req.params;
@@ -19,7 +20,7 @@ gameRoutes.get('/games/:id', (req: Request, res: Response) => {
         const { gameId, state } = game;
         res.json({ gameId, state });
     } catch (error) {
-        console.log(error); // implement logging
+        console.log(error);
         res.status(400).json({ message: error });
     }
 });
@@ -61,7 +62,7 @@ gameRoutes.post('/games/:id/hit', (req: Request, res: Response) => {
         const { gameId, state } = game;
         res.json({ gameId, state });
     } catch (error) {
-        console.log(error); // implement logging
+        console.log(error);
         res.status(400).json({ message: error });
     }
 });
@@ -82,12 +83,43 @@ gameRoutes.post('/games/:id/stand', (req: Request, res: Response) => {
             const { gameId, state } = game;
             res.json({ gameId, state });
         } catch (error) {
-            console.log(error); // implement logging
+            console.log(error);
             res.status(400).json({ message: error });
         }
     } catch (error) {
-        console.log(error); // implement logging
+        console.log(error);
         res.status(400).json({ message: error });
+    }
+});
+
+gameRoutes.get('/leaderboards', async (req: Request, res: Response) => {
+    try {
+        const statsService = new StatsService()
+        const leaderboards = await statsService.getLeaderboards('week')
+
+        res.json(leaderboards)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: error })
+    }
+});
+
+gameRoutes.post('/leaderboards', async (req: Request, res: Response) => {
+    try {
+        const { data } = req.body
+
+        if (!data) {
+            res.status(400).json({ message: 'Bad request, missing data' })
+            return;
+        }
+
+        const statsService = new StatsService()
+        const resultId = await statsService.addStatsToLeaderboards(data)
+
+        res.json(resultId)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: error })
     }
 });
 

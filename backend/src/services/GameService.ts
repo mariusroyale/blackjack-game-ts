@@ -8,12 +8,14 @@ import { IGame } from "../interfaces/Game";
 import { PlayerStats } from "../models/PlayerStats";
 import { Deck } from "../models/Deck";
 import { createHash } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 export class GameService implements IGameService {
     private games = new Map<string, Blackjack>();
     private playerStats = new Map<string, PlayerStats>();
     private gameAI!: GameAI;
     private decks = new Map<string, Deck>();
+    private playerSessionIds = new Map<string, string>();
 
     public createGame(playersData: { playerName: string, type: PlayerType }[]): { gameId: string; state: IGameState } {
         // initialize deck instance
@@ -51,7 +53,20 @@ export class GameService implements IGameService {
 
             const { playerName, type } = playerData;
             const player = new Player(playerName, type, playerStats);
-            game.addPlayer(player);
+            
+            // create player session id
+            const playerId = player.getId();
+            let playerSessionId = this.playerSessionIds.get(playerId);
+            
+            if (!playerSessionId) {
+                playerSessionId = uuidv4();
+                this.playerSessionIds.set(playerId, playerSessionId);
+            }
+
+            // set player session id
+            player.setPlayerSessionId(playerSessionId);
+            
+            game.addPlayer(player);         
         });
 
         // start the game

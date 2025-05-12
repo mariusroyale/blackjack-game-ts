@@ -11,20 +11,20 @@ import { v4 as uuidv4 } from 'uuid';
 import { Deck } from "./Deck";
 
 export class Blackjack implements IGame {
-    public gameId: string;
-    public players: IPlayer[] = [];
-    public deck: IDeck;
-    public turn: GameTurn;
-    public gameStatus: GameStatus;
-    public gameEndStatus: GameEndStatus;
-    public gameStats: IGameStats;
+    public gameId: string
+    public players: IPlayer[] = []
+    public deck: IDeck
+    public turn: GameTurn
+    public gameStatus: GameStatus
+    public gameEndStatus: GameEndStatus
+    public gameStats: IGameStats
 
     constructor(deck: IDeck) {
-        this.gameId = uuidv4();
-        this.deck = deck;
-        this.turn = 'player';
-        this.gameStatus = 'active';
-        this.gameEndStatus = '';
+        this.gameId = uuidv4()
+        this.deck = deck
+        this.turn = 'player'
+        this.gameStatus = 'active'
+        this.gameEndStatus = ''
         this.gameStats = {
             turnsPlayed: 0,
             playerTurnsPlayed: 0,

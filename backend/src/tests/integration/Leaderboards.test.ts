@@ -6,7 +6,7 @@ describe.skip("Leaderboards integration test", () => {
     let testPlayerName = `Marius_${randomUUID().slice(0, 8)}`
 
     afterAll(async () => {
-        await pgPool.query(`DELETE FROM leaderboards WHERE player_name = '${testPlayerName}'`)
+        // await pgPool.query(`DELETE FROM leaderboards WHERE player_name = '${testPlayerName}'`)
         await pgPool.end()
     });
 

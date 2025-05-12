@@ -10,6 +10,7 @@ export class Player implements IPlayer {
     public hand: ICard[]
     public type: PlayerType
     public stats: IPlayerStats
+    public gameSessionId: string
 
     constructor(name: string, type: PlayerType, stats: IPlayerStats) {
         this.name = name
@@ -17,6 +18,7 @@ export class Player implements IPlayer {
         this.hand = []
         this.stats = stats
         this.id = this.generateUniqueIdBasedOnName(name)
+        this.gameSessionId = ''
     }
 
     public getName(): string {
@@ -35,8 +37,16 @@ export class Player implements IPlayer {
         this.hand.push(card)
     }
 
+    public getId(): string {
+        return this.id
+    }
+
     private generateUniqueIdBasedOnName(name: string): string {
         const lowerCaseName = name.toLocaleLowerCase()
         return createHash('sha256').update(lowerCaseName).digest('hex')
+    }
+
+    public setPlayerSessionId(playerSessionId: string): void {
+        this.gameSessionId = playerSessionId
     }
 }
