@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS leaderboards;
 -- Create leaderboard table
 CREATE TABLE leaderboards (
     id SERIAL PRIMARY KEY,
+    player_game_session_id UUID UNIQUE NOT NULL,
     player_id VARCHAR(255) NOT NULL,
     player_name VARCHAR(255) NOT NULL,
     total_games INT DEFAULT 0,

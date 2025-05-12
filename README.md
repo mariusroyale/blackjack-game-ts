@@ -106,23 +106,25 @@ Initializes a new Blackjack game.
 #### Response
 ```json
 {
-    "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
+    "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
     "state": {
-        "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
+        "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
         "players": [
             {
-                "name": "Marius",
+                "name": "marius",
                 "type": "player",
                 "hand": [
                     {
-                        "suit": "Diamonds",
-                        "rank": "4",
-                        "nonce": 311
+                        "suit": "Hearts",
+                        "rank": "3",
+                        "nonce": 308,
+                        "id": "a93630b5-89f2-4dbd-9f63-96aa0f00e420"
                     },
                     {
                         "suit": "Spades",
-                        "rank": "Jack",
-                        "nonce": 310
+                        "rank": "King",
+                        "nonce": 307,
+                        "id": "3f403a99-4c0b-4216-b52e-b07ddb29288e"
                     }
                 ],
                 "stats": {
@@ -133,16 +135,19 @@ Initializes a new Blackjack game.
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "5b39bfccb1447d4aae30e7a4fb0f4ba37e79ea96ec54b5ba7223979a15e4d0ae",
+                "gameSessionId": "cef072b9-f38d-40df-864f-47b29257777a"
             },
             {
-                "name": "Blackjackzilla",
+                "name": "JackBot Royale",
                 "type": "dealer",
                 "hand": [
                     {
-                        "suit": "Clubs",
-                        "rank": "10",
-                        "nonce": 309
+                        "suit": "Spades",
+                        "rank": "9",
+                        "nonce": 306,
+                        "id": "150b46e9-5c1d-4be8-badb-37655e600451"
                     }
                 ],
                 "stats": {
@@ -153,11 +158,13 @@ Initializes a new Blackjack game.
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "a18177fb3849d47a0f495ba85f59d2fa019ecd5666d10438f239b7db1b7ed15f",
+                "gameSessionId": "55380701-1884-4fbe-a346-022d4fd6ccbc"
             }
         ],
-        "deckSize": 309,
-        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
+        "deckSize": 306,
+        "deckSeed": "7f9646496a768b2cb2a9bddc6fe1d359d98f4a5db4f007f2c5ee61535d187501",
         "turn": "player",
         "gameStatus": "active",
         "gameEndStatus": "",
@@ -169,8 +176,8 @@ Initializes a new Blackjack game.
             "dealerEndedTurn": false,
             "winner": "",
             "playerScore": {
-                "player": 14,
-                "dealer": 10
+                "player": 13,
+                "dealer": 9
             }
         }
     }
@@ -197,28 +204,31 @@ Player chooses to draw another card.
 #### Response
 ```json
 {
-    "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
+    "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
     "state": {
-        "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
+        "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
         "players": [
             {
-                "name": "M",
+                "name": "marius",
                 "type": "player",
                 "hand": [
                     {
-                        "suit": "Diamonds",
-                        "rank": "4",
-                        "nonce": 311
+                        "suit": "Hearts",
+                        "rank": "3",
+                        "nonce": 308,
+                        "id": "a93630b5-89f2-4dbd-9f63-96aa0f00e420"
                     },
                     {
                         "suit": "Spades",
-                        "rank": "Jack",
-                        "nonce": 310
+                        "rank": "King",
+                        "nonce": 307,
+                        "id": "3f403a99-4c0b-4216-b52e-b07ddb29288e"
                     },
                     {
-                        "suit": "Hearts",
-                        "rank": "Ace",
-                        "nonce": 308
+                        "suit": "Diamonds",
+                        "rank": "8",
+                        "nonce": 305,
+                        "id": "761306ff-7620-4399-b51f-fc5b6c90915d"
                     }
                 ],
                 "stats": {
@@ -229,16 +239,19 @@ Player chooses to draw another card.
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "5b39bfccb1447d4aae30e7a4fb0f4ba37e79ea96ec54b5ba7223979a15e4d0ae",
+                "gameSessionId": "cef072b9-f38d-40df-864f-47b29257777a"
             },
             {
-                "name": "Blackjackzilla",
+                "name": "JackBot Royale",
                 "type": "dealer",
                 "hand": [
                     {
-                        "suit": "Clubs",
-                        "rank": "10",
-                        "nonce": 309
+                        "suit": "Spades",
+                        "rank": "9",
+                        "nonce": 306,
+                        "id": "150b46e9-5c1d-4be8-badb-37655e600451"
                     }
                 ],
                 "stats": {
@@ -249,11 +262,13 @@ Player chooses to draw another card.
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "a18177fb3849d47a0f495ba85f59d2fa019ecd5666d10438f239b7db1b7ed15f",
+                "gameSessionId": "55380701-1884-4fbe-a346-022d4fd6ccbc"
             }
         ],
-        "deckSize": 308,
-        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
+        "deckSize": 305,
+        "deckSeed": "7f9646496a768b2cb2a9bddc6fe1d359d98f4a5db4f007f2c5ee61535d187501",
         "turn": "player",
         "gameStatus": "active",
         "gameEndStatus": "",
@@ -265,8 +280,8 @@ Player chooses to draw another card.
             "dealerEndedTurn": false,
             "winner": "",
             "playerScore": {
-                "player": 15,
-                "dealer": 10
+                "player": 21,
+                "dealer": 9
             }
         }
     }
@@ -293,28 +308,31 @@ Player ends their turn; the dealer will automatically play.
 #### Response
 ```json
 {
-    "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
+    "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
     "state": {
-        "gameId": "4d432259-b74f-4d23-af4a-8d776a0179c3",
+        "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
         "players": [
             {
-                "name": "M",
+                "name": "marius",
                 "type": "player",
                 "hand": [
                     {
-                        "suit": "Diamonds",
-                        "rank": "4",
-                        "nonce": 311
+                        "suit": "Hearts",
+                        "rank": "3",
+                        "nonce": 308,
+                        "id": "a93630b5-89f2-4dbd-9f63-96aa0f00e420"
                     },
                     {
                         "suit": "Spades",
-                        "rank": "Jack",
-                        "nonce": 310
+                        "rank": "King",
+                        "nonce": 307,
+                        "id": "3f403a99-4c0b-4216-b52e-b07ddb29288e"
                     },
                     {
-                        "suit": "Hearts",
-                        "rank": "Ace",
-                        "nonce": 308
+                        "suit": "Diamonds",
+                        "rank": "8",
+                        "nonce": 305,
+                        "id": "761306ff-7620-4399-b51f-fc5b6c90915d"
                     }
                 ],
                 "stats": {
@@ -325,16 +343,19 @@ Player ends their turn; the dealer will automatically play.
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "5b39bfccb1447d4aae30e7a4fb0f4ba37e79ea96ec54b5ba7223979a15e4d0ae",
+                "gameSessionId": "cef072b9-f38d-40df-864f-47b29257777a"
             },
             {
-                "name": "Blackjackzilla",
+                "name": "JackBot Royale",
                 "type": "dealer",
                 "hand": [
                     {
-                        "suit": "Clubs",
-                        "rank": "10",
-                        "nonce": 309
+                        "suit": "Spades",
+                        "rank": "9",
+                        "nonce": 306,
+                        "id": "150b46e9-5c1d-4be8-badb-37655e600451"
                     }
                 ],
                 "stats": {
@@ -345,11 +366,13 @@ Player ends their turn; the dealer will automatically play.
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "a18177fb3849d47a0f495ba85f59d2fa019ecd5666d10438f239b7db1b7ed15f",
+                "gameSessionId": "55380701-1884-4fbe-a346-022d4fd6ccbc"
             }
         ],
-        "deckSize": 308,
-        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
+        "deckSize": 305,
+        "deckSeed": "7f9646496a768b2cb2a9bddc6fe1d359d98f4a5db4f007f2c5ee61535d187501",
         "turn": "dealer",
         "gameStatus": "active",
         "gameEndStatus": "",
@@ -361,8 +384,8 @@ Player ends their turn; the dealer will automatically play.
             "dealerEndedTurn": false,
             "winner": "",
             "playerScore": {
-                "player": 15,
-                "dealer": 10
+                "player": 21,
+                "dealer": 9
             }
         }
     }
@@ -384,85 +407,205 @@ Get an existing instance of a game by id. Refer to `/api/games` for obtaining th
 #### Response
 ```json
 {
-    "gameId": "88cfde81-b9a9-4167-a23c-9237a7669a7c",
+    "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
     "state": {
-        "gameId": "88cfde81-b9a9-4167-a23c-9237a7669a7c",
+        "gameId": "e625533b-5889-403c-9103-adc9d7311c88",
         "players": [
             {
-                "name": "M",
+                "name": "marius",
                 "type": "player",
                 "hand": [
                     {
-                        "suit": "Diamonds",
-                        "rank": "4",
-                        "nonce": 311
+                        "suit": "Hearts",
+                        "rank": "3",
+                        "nonce": 308,
+                        "id": "a93630b5-89f2-4dbd-9f63-96aa0f00e420"
                     },
                     {
                         "suit": "Spades",
-                        "rank": "Jack",
-                        "nonce": 310
+                        "rank": "King",
+                        "nonce": 307,
+                        "id": "3f403a99-4c0b-4216-b52e-b07ddb29288e"
                     },
                     {
-                        "suit": "Hearts",
-                        "rank": "Ace",
-                        "nonce": 308
+                        "suit": "Diamonds",
+                        "rank": "8",
+                        "nonce": 305,
+                        "id": "761306ff-7620-4399-b51f-fc5b6c90915d"
                     }
                 ],
                 "stats": {
                     "wins": 0,
-                    "losses": 1,
+                    "losses": 0,
                     "draws": 0,
-                    "totalGames": 1,
+                    "totalGames": 0,
                     "winPercentage": 0,
                     "highestWinStreak": 0,
                     "currentWinStreak": 0
-                }
+                },
+                "id": "5b39bfccb1447d4aae30e7a4fb0f4ba37e79ea96ec54b5ba7223979a15e4d0ae",
+                "gameSessionId": "cef072b9-f38d-40df-864f-47b29257777a"
             },
             {
-                "name": "Blackjackzilla",
+                "name": "JackBot Royale",
                 "type": "dealer",
                 "hand": [
                     {
-                        "suit": "Clubs",
-                        "rank": "10",
-                        "nonce": 309
-                    },
-                    {
-                        "suit": "Clubs",
-                        "rank": "8",
-                        "nonce": 307
+                        "suit": "Spades",
+                        "rank": "9",
+                        "nonce": 306,
+                        "id": "150b46e9-5c1d-4be8-badb-37655e600451"
                     }
                 ],
                 "stats": {
-                    "wins": 1,
+                    "wins": 0,
                     "losses": 0,
                     "draws": 0,
-                    "totalGames": 1,
-                    "winPercentage": 100,
-                    "highestWinStreak": 1,
-                    "currentWinStreak": 1
-                }
+                    "totalGames": 0,
+                    "winPercentage": 0,
+                    "highestWinStreak": 0,
+                    "currentWinStreak": 0
+                },
+                "id": "a18177fb3849d47a0f495ba85f59d2fa019ecd5666d10438f239b7db1b7ed15f",
+                "gameSessionId": "55380701-1884-4fbe-a346-022d4fd6ccbc"
             }
         ],
-        "deckSize": 307,
-        "deckSeed": "a957822fb76fd829d9c197a25c2545889989c2bdfd4c81bd4730e5fa745adbcb",
-        "turn": "player",
-        "gameStatus": "completed",
-        "gameEndStatus": "highScore",
+        "deckSize": 305,
+        "deckSeed": "7f9646496a768b2cb2a9bddc6fe1d359d98f4a5db4f007f2c5ee61535d187501",
+        "turn": "dealer",
+        "gameStatus": "active",
+        "gameEndStatus": "",
         "gameStats": {
-            "turnsPlayed": 2,
+            "turnsPlayed": 1,
             "playerTurnsPlayed": 1,
             "playerEndedTurn": true,
-            "dealerTurnsPlayed": 1,
-            "dealerEndedTurn": true,
-            "winner": "dealer",
+            "dealerTurnsPlayed": 0,
+            "dealerEndedTurn": false,
+            "winner": "",
             "playerScore": {
-                "player": 15,
-                "dealer": 18
+                "player": 21,
+                "dealer": 9
             }
         }
     }
 }
+```
+
+---
+
+### 🤚 Stand
+
+**GET** `/api/leaderboards`  
+Fetch all players from the leaderboards in the past week (LIMIT to be implemented).
+
+TODO: player game session id will be added soon!
+
+#### Request Body
+```json
+{
+    "dateRange": "week",
+}
+```
+
+#### Response
+```json
+[
+    {
+        "playerName": "Marius_9cc9d10d",
+        "totalGames": "190",
+        "totalWinPoints": "1000",
+        "totalWins": "26",
+        "totalLosses": "164",
+        "highestWinStreak": 5,
+        "dateCreated": "2025-05-12T18:01:54.921Z",
+        "winPercentage": "13.68",
+        "playerId": "cc42708f549e46a123827bac7dab20d792aad05b20a8c33a1d9189ac7bab49cc"
+    },
+    {
+        "playerName": "Marius_c7ee0098",
+        "totalGames": "122",
+        "totalWinPoints": "1000",
+        "totalWins": "74",
+        "totalLosses": "48",
+        "highestWinStreak": 5,
+        "dateCreated": "2025-05-12T18:00:49.934Z",
+        "winPercentage": "60.66",
+        "playerId": "20411a2ab2c5cdcb8c888d106db1aec2215f3cf01c04d44855241b33287290f8"
+    },
+    {
+        "playerName": "Marius",
+        "totalGames": "923",
+        "totalWinPoints": "7000",
+        "totalWins": "384",
+        "totalLosses": "539",
+        "highestWinStreak": 5,
+        "dateCreated": "2025-05-12T02:57:50.275Z",
+        "winPercentage": "41.60",
+        "playerId": "f115f284ba8ff17d061edb8751ae2eae093b1a53cea7cc5e82b1c6a0aed96f47"
+    },
+    {
+        "playerName": "Marius_c7ff8609",
+        "totalGames": "187",
+        "totalWinPoints": "1000",
+        "totalWins": "95",
+        "totalLosses": "92",
+        "highestWinStreak": 5,
+        "dateCreated": "2025-05-12T18:01:23.044Z",
+        "winPercentage": "50.80",
+        "playerId": "bdbe825d2bf7f41a67447b9913981b78174d0fab369bcf50245c010173d9e601"
+    }
+]
+```
+
+---
+
+### 🤚 Stand
+
+**POST** `/api/leaderboards`  
+Save a leaderboards tracking event in database.
+
+#### Request Body
+```json
+{
+    "name": "marius",
+    "type": "player",
+    "hand": [
+        {
+            "suit": "Hearts",
+            "rank": "3",
+            "nonce": 308,
+            "id": "a93630b5-89f2-4dbd-9f63-96aa0f00e420"
+        },
+        {
+            "suit": "Spades",
+            "rank": "King",
+            "nonce": 307,
+            "id": "3f403a99-4c0b-4216-b52e-b07ddb29288e"
+        },
+        {
+            "suit": "Diamonds",
+            "rank": "8",
+            "nonce": 305,
+            "id": "761306ff-7620-4399-b51f-fc5b6c90915d"
+        }
+    ],
+    "stats": {
+        "wins": 0,
+        "losses": 0,
+        "draws": 0,
+        "totalGames": 0,
+        "winPercentage": 0,
+        "highestWinStreak": 0,
+        "currentWinStreak": 0
+    },
+    "id": "5b39bfccb1447d4aae30e7a4fb0f4ba37e79ea96ec54b5ba7223979a15e4d0ae",
+    "gameSessionId": "cef072b9-f38d-40df-864f-47b29257777a"
+}
+```
+
+#### Response
+```json
+{ leaderboardsId: 1 } 
 ```
 
 ---
