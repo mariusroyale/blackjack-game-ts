@@ -4,6 +4,7 @@ import { IPlayerStats } from "./PlayerStats";
 export type PlayerType = 'player' | 'dealer';
 
 export interface IPlayer {
+    id: string;
     name: string;
     hand: ICard[];
     type: PlayerType;
