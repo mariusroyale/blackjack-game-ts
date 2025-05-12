@@ -493,7 +493,7 @@ Get an existing instance of a game by id. Refer to `/api/games` for obtaining th
 
 ---
 
-### 🤚 Stand
+### 🏅 Leaderboards - get all stats
 
 **GET** `/api/leaderboards`  
 Fetch all players from the leaderboards in the past week (LIMIT to be implemented).
@@ -559,7 +559,7 @@ TODO: player game session id will be added soon!
 
 ---
 
-### 🤚 Stand
+### 🏅 Leaderboards - save stats records
 
 **POST** `/api/leaderboards`  
 Save a leaderboards tracking event in database.
