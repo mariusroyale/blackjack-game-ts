@@ -1,0 +1,32 @@
+.retro-button {
+    display: inline-block;
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    background-color: rgb(0, 0, 0);
+    color: #0f0 !important;
+    border: 2px solid #0f0;
+    padding: 12px 20px;
+    margin: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 10px #0f0;
+    text-shadow: 0 0 5px #0f0;
+    transition: all 0.2s ease-in-out;
+    border-radius: 4px;
+    min-width: 160px;
+    white-space: nowrap;
+
+    width: auto !important;
+    max-width: max-content;
+}
+
+.retro-button:hover {
+    background-color: #0f0;
+    color: black !important;
+    box-shadow: 0 0 15px #0f0;
+    text-shadow: none;
+}
+
+.retro-button:active {
+    transform: scale(0.96);
+    box-shadow: 0 0 5px #0f0 inset;
+}

@@ -34,7 +34,7 @@ h1 {
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  background-color: #28a745;
+  /* background-color: #28a745; */
   color: white;
   font-weight: bold;
   margin: 5px;
@@ -47,19 +47,23 @@ h1 {
 }
 
 .app button:hover {
-  background-color: #218838;
+  /* background-color: #218838; */
   transform: scale(1.03);
 }
 
 .table {
   margin-top: 20px;
-  background-color: #084408;
+  background-color: #001100; /* darker green for CRT feel */
   padding: 30px 40px;
   border-radius: 16px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  border: 2px solid #0f0;
+  box-shadow: 0 0 15px #0f0, inset 0 0 10px #0f0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
 }
 
 .hand {
@@ -141,7 +145,7 @@ h1 {
   position: absolute;
   top: 4px;
   left: 6px;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .card-suit {
@@ -157,7 +161,7 @@ h1 {
   width: 100px;
   padding: 10px 25px;
   margin: 0 8px;
-  background: rgba(255, 217, 0, 0.877);
+  /* background: rgba(255, 217, 0, 0.877); */
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   color: rgb(0, 0, 0);
@@ -170,12 +174,12 @@ h1 {
 }
 
 .controls button:hover {
-  background: rgb(252, 223, 59);
+  /* background: rgb(252, 223, 59); */
   transform: scale(1.03);
 }
 
 .controls button:disabled {
-  background-color: #555;
+  /* background-color: #555; */
   cursor: not-allowed;
 }
 
@@ -241,7 +245,7 @@ h1 {
 }
 
 .winner-banner {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
   padding: 20px;
   background-color: rgba(255, 215, 0, 0.2); /* goldish */
@@ -270,7 +274,7 @@ h1 {
 }
 
 .winner-highlight {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
   background-color: rgba(255, 215, 0, 0.2);
   border: 2px solid gold;

@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/App.css";
+import '../styles/RetroButton.css';
 import { getRandomDealerName } from '../shared/utils/getRandomDealerName';
 import SaveStatsPopup from './components/SaveStatsPopUp';
 import ToggleSwitch from "./components/ToggleSwitch";
+import NavBar from './components/NavBar';
 
 
 // Toggle mock mode
@@ -348,6 +350,7 @@ export default function App() {
   }
 
   const ThemeSelector = () => {
+    return null;
     const [isDark, setIsDark] = useState(() => {
       // Read from localStorage on initial load
       const saved = localStorage.getItem("theme");
@@ -431,6 +434,7 @@ export default function App() {
   return (
     <div className="app">
       <ThemeSelector />
+      <NavBar />
       
       <h1>
         <span style={{ color: "black" }}>♠</span> Blackjack
@@ -451,7 +455,7 @@ export default function App() {
             className={nameError ? "input-error" : ""}
           />
           
-          <button onClick={handleStartGame}>Start Game</button>
+          <button className="retro-button" onClick={handleStartGame}>Start Game</button>
         
           {nameError && (
             <div className="error-message">Your name is mandatory</div>
@@ -488,12 +492,12 @@ export default function App() {
               </span>
             </div> */}
 
-            {/* <div className="status-item">
+            <div className="status-item">
               <span className="status-label">Reason</span>
               <span className="status-badge status-reason">
                 {game.gameEndStatus || "—"}
               </span>
-            </div> */}
+            </div>
 
             <div className="status-item">
               <span className="status-label">Turn</span>
@@ -554,16 +558,16 @@ export default function App() {
               <div className="controls">
                 {game.gameStatus !== "completed" && (
                   <>
-                    <button onClick={() => hit(game.players[0])}>Hit</button>
+                    <button className="retro-button" onClick={() => hit(game.players[0])}>Hit</button>
                     <span> 🎲 </span>
-                    <button onClick={stand}>Stand</button>
+                    <button className="retro-button" onClick={stand}>Stand</button>
                   </>
                 )}
                 
                 {game.gameStatus === "completed" && (
                   <>
-                    <div className="new-game-button">
-                      <button onClick={resetGame}>Start New Game</button>
+                    <div>
+                      <button className="retro-button" onClick={resetGame}>Start New Game</button>
                     </div>
                     <SaveStatsPopup
                       visible={showPopup}

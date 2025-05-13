@@ -2,6 +2,20 @@
 
 [![Backend Tests](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/backend-tests.yml) [![Frontend Tests](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/frontend-tests.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/frontend-tests.yml)
 
+
+### May 13, 2025
+- 🎴 Major update version 2.0 of the game brings lots of goodies
+- 🎴 Added a completely new retro look
+- 🎴 Added /leaderboards
+- 🎴 Added functionality to auto-save stats
+- 🎴 Leaderboards will display top 50 players sorted by highest points earned
+
+### May 12, 2025
+- 🎮 Game engine upgrade with ability to save, and retrieve player stats
+- 🔧 Added api rate limiter
+- 🔄 Implemented postgres final db schema
+- 🔄 Added db pool connector and configured infrastructure
+
 ### May 7, 2025
 - 🎴 Started major React App refactor, moving from jsx to tsx. The code will be componetized more. Part 1 is done.
 
