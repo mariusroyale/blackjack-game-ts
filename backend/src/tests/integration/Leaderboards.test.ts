@@ -1,5 +1,6 @@
 import { Leaderboards } from "../../models/Leaderboards"
 import { createHash, randomUUID  } from "crypto"
+import { v4 as uuidv4 } from 'uuid'
 import { pgPool } from "../../db/pgPool"
 
 describe.skip("Leaderboards integration test", () => {
@@ -15,6 +16,7 @@ describe.skip("Leaderboards integration test", () => {
             id: undefined,
             playerId: createHash("sha256").update(testPlayerName).digest("hex"),
             playerName: testPlayerName,
+            playerSessionId: uuidv4(),
             totalGames: Math.floor(Math.random() * 101) + 100,
             totalWinPoints: 1000,
             totalWins: Math.floor(Math.random() * 99) + 1,
