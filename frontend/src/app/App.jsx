@@ -138,18 +138,33 @@ export default function App() {
     try {
 
       console.log(getPlayerData());
+      const player = getPlayerData();
+
+      const playerSessionStats = {
+        playerId: player.id,
+        playerSessionId: player.gameSessionId,
+        playerName: player.name,
+        totalGames: player.stats.totalGames,
+        totalWinPoints: player.stats.winPoints,
+        totalWins: player.stats.wins,
+        totalLosses: player.stats.losses,
+        highestWinStreak: player.stats.highestWinStreak,
+        dateCreated: player.stats.dateCreated,
+        winPercentage: player.stats.winPercentage,
+      };
+
       // get stats ready
-      // const response = await fetch('/api/leaderboards', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(sessionStats),
-      // });
+      const response = await fetch(`${API_BASE_URL}/api/leaderboards`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(playerSessionStats),
+      });
 
-      // if (!response.ok) {
-      //   throw new Error('Failed to save stats');
-      // }
+      if (!response.ok) {
+        throw new Error('Failed to save stats');
+      }
 
-      // setShowPopup(false);
+      setShowPopup(false);
     } catch (error) {
       console.error('Error saving stats:', error);
     }
@@ -158,12 +173,13 @@ export default function App() {
   useEffect(() => {
     if (game?.gameStatus === "completed") {
       if (autoSave) {
-        // auto save in batches of 5
+        // TODO: auto save in batches of 5 -- revisit this, currently, it will save stats with each turn
         if (true || game.gameStats.totalGames % 5 === 0) {
+          console.log('Auto saving stats...');
           saveStatsToDB(); // auto save
         }
       } else {
-        setShowPopup(true); // show prompt
+        setShowPopup(false); // show prompt
       }
     }
   }, [game?.gameStatus]);

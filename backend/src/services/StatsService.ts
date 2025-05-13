@@ -11,6 +11,7 @@ export class StatsService implements IStatsService {
         this.dummyLeaderboardValues = {
             id: undefined,
             playerId: '',
+            playerSessionId: '',
             playerName: '',
             totalGames: 0,
             totalWinPoints: 0,

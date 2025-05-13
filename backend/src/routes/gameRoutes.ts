@@ -106,7 +106,7 @@ gameRoutes.get('/leaderboards', async (req: Request, res: Response) => {
 
 gameRoutes.post('/leaderboards', async (req: Request, res: Response) => {
     try {
-        const { data } = req.body
+        const data = req.body
 
         if (!data) {
             res.status(400).json({ message: 'Bad request, missing data' })
@@ -115,6 +115,15 @@ gameRoutes.post('/leaderboards', async (req: Request, res: Response) => {
 
         const statsService = new StatsService()
         const resultId = await statsService.addStatsToLeaderboards(data)
+
+        if (!resultId) {
+            const message = 'Failed to save leaderboard to database'
+            console.log(`Player id: ${data.playerId} - ${message}`)
+            res.status(400).json({ message: 'Failed to save leaderboards stats to database' })
+            return
+        }
+
+        console.log(`Player id: ${data.playerId} - Leaderboards stats saved with id: ${resultId}`)
 
         res.json(resultId)
     } catch (error) {

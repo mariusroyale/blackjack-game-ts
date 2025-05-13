@@ -6,6 +6,7 @@ import { createHash } from 'crypto'
 export class Leaderboards implements ILeaderboards {
     public id: number | undefined
     public playerId: string
+    public playerSessionId: string
     public playerName: string
     public totalGames: number
     public totalWinPoints: number
@@ -19,15 +20,16 @@ export class Leaderboards implements ILeaderboards {
      * Creates a new instance of the Leaderboards class with the given data. If playerId is not provided, it is generated based on the playerName.
      * @param {ILeaderboards} data - The data to initialize the instance with.
      */
-    public constructor({ id, playerId, playerName, totalGames, totalWinPoints, totalWins, totalLosses, highestWinStreak, dateCreated, winPercentage }: ILeaderboards) {
+    public constructor({ id, playerId, playerSessionId, playerName, totalGames, totalWinPoints, totalWins, totalLosses, highestWinStreak, dateCreated, winPercentage }: ILeaderboards) {
         this.id = id
+        this.playerSessionId = playerSessionId
         this.playerName = playerName
         this.totalGames = totalGames
         this.totalWinPoints = totalWinPoints
         this.totalWins = totalWins
         this.totalLosses = totalLosses
         this.highestWinStreak = highestWinStreak
-        this.dateCreated = dateCreated
+        this.dateCreated = dateCreated || new Date()
         this.winPercentage = winPercentage
 
         this.playerId = playerId || this.generatePlayerIdHash(this.playerName)
@@ -39,8 +41,34 @@ export class Leaderboards implements ILeaderboards {
      */
     public async saveToDatabase(): Promise<number | undefined> {
         try {
-            const result = await pgPool.query(`INSERT INTO leaderboards (player_id, player_name, total_games, total_win_points, total_wins, total_losses, highest_win_streak, date_created) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`, [
+            const result = await pgPool.query(
+                `
+                INSERT INTO leaderboards (
+                player_id, 
+                player_game_session_id, 
+                player_name, 
+                total_games, 
+                total_win_points, 
+                total_wins, 
+                total_losses, 
+                highest_win_streak, 
+                date_created
+                ) 
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+                ON CONFLICT (player_game_session_id)
+                DO UPDATE SET
+                    player_id = EXCLUDED.player_id,
+                    player_name = EXCLUDED.player_name,
+                    total_games = EXCLUDED.total_games,
+                    total_win_points = EXCLUDED.total_win_points,
+                    total_wins = EXCLUDED.total_wins,
+                    total_losses = EXCLUDED.total_losses,
+                    highest_win_streak = EXCLUDED.highest_win_streak,
+                    date_created = LEAST(leaderboards.date_created, EXCLUDED.date_created)
+                RETURNING id           
+                `, [
                 this.playerId,
+                this.playerSessionId,
                 this.playerName,
                 this.totalGames,
                 this.totalWinPoints,
@@ -79,7 +107,8 @@ export class Leaderboards implements ILeaderboards {
 
             const data = results.rows.map(row => new Leaderboards({
                 id: row.id, 
-                playerId: row.player_id, 
+                playerId: row.player_id,
+                playerSessionId: row.player_session_id, 
                 playerName: row.player_name, 
                 totalGames: row.total_games, 
                 totalWinPoints: row.total_win_points, 
