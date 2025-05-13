@@ -4,6 +4,7 @@ export interface IPlayerStats {
     draws: number
     totalGames: number
     winPercentage: number
+    winPoints: number
     highestWinStreak: number
     currentWinStreak: number
 
@@ -12,4 +13,5 @@ export interface IPlayerStats {
     recordDraw(): void
     updateWinPercentage(): void
     resetStats(): void
+    updateWinPoints(points: number): void
 }

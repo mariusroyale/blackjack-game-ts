@@ -193,53 +193,63 @@ export class Blackjack implements IGame {
             return
         }
 
+        // get player score from gameStats, consider re-calculating if needed
+        const playerScore = this.gameStats.playerScore.player
+        const dealerScore = this.gameStats.playerScore.dealer
+
         // check for bust first
-        if (this.gameStats.playerScore.player > this.getBlackjackValue()) {
+        if (playerScore > this.getBlackjackValue()) {
             this.endGame('bust', 'dealer')
             dealer.stats.recordWin()
+            dealer.stats.updateWinPoints(dealerScore)
             player.stats.recordLoss()
             return
         }
 
-        if (this.gameStats.playerScore.dealer > this.getBlackjackValue()) {
+        if (dealerScore > this.getBlackjackValue()) {
             this.endGame('bust', 'player')
             dealer.stats.recordLoss()
             player.stats.recordWin()
+            player.stats.updateWinPoints(playerScore)
             return
         }
 
         // very important to check if both players have ended their turn before proceeding with the rest of the checks
         if (this.gameStats.playerEndedTurn && this.gameStats.dealerEndedTurn) {
-            if (this.gameStats.playerScore.player === this.gameStats.playerScore.dealer) {
+            if (playerScore === dealerScore) {
                 this.endGame('draw', '')
                 dealer.stats.recordDraw()
                 player.stats.recordDraw()
                 return
             }
     
-            if (this.gameStats.playerScore.player === this.getBlackjackValue()) {
+            if (playerScore === this.getBlackjackValue()) {
                 this.endGame('blackjack', 'player')
                 dealer.stats.recordLoss()
                 player.stats.recordWin()
+                player.stats.updateWinPoints(playerScore)
                 return
             }
     
-            if (this.gameStats.playerScore.dealer === this.getBlackjackValue()) {
+            if (dealerScore === this.getBlackjackValue()) {
                 this.endGame('blackjack', 'dealer')
                 dealer.stats.recordWin()
+                dealer.stats.updateWinPoints(dealerScore)
                 player.stats.recordLoss()
                 return
             }
             
-            if (this.gameStats.playerScore.player > this.gameStats.playerScore.dealer) {
+            if (playerScore > dealerScore) {
                 this.endGame('highScore', 'player')
                 dealer.stats.recordLoss()
                 player.stats.recordWin()
+                player.stats.updateWinPoints(playerScore)
                 return
             }
 
             this.endGame('highScore', 'dealer')
             dealer.stats.recordWin()
+            dealer.stats.updateWinPoints(dealerScore)
             player.stats.recordLoss()
         }
     }

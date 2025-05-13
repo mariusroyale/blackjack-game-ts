@@ -6,6 +6,7 @@ export class PlayerStats implements IPlayerStats {
     draws: number = 0
     totalGames: number = 0
     winPercentage: number = 0
+    winPoints: number = 0
     highestWinStreak: number = 0
     currentWinStreak: number = 0
 
@@ -42,6 +43,10 @@ export class PlayerStats implements IPlayerStats {
 
         this.winPercentage = parseFloat(((this.wins / this.totalGames) * 100).toFixed(2))
     }
+
+    public updateWinPoints(points: number): void {
+        this.winPoints += points
+    }
     
     public resetStats(): void {
         this.wins = 0
@@ -49,6 +54,7 @@ export class PlayerStats implements IPlayerStats {
         this.draws = 0
         this.totalGames = 0
         this.winPercentage = 0
+        this.winPoints = 0
         this.highestWinStreak = 0
         this.currentWinStreak = 0
     }
