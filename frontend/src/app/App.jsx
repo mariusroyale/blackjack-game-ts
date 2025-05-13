@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "../styles/App.css";
-
 import { getRandomDealerName } from '../shared/utils/getRandomDealerName';
+import SaveStatsPopup from './components/SaveStatsPopUp';
+import ToggleSwitch from "./components/ToggleSwitch";
+
 
 // Toggle mock mode
 const USE_MOCK = false;
@@ -28,6 +30,8 @@ export default function App() {
   const spinnerTimeoutRef = useRef(null);
   const loadingInProgress = useRef(false);
   const [fadeOutCards, setFadeOutCards] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [autoSave, setAutoSave] = useState(true);
 
   const API_BASE_URL = process.env.NODE_ENV === "production" 
   ? "https://blackjack-game-ts.onrender.com"
@@ -130,18 +134,42 @@ export default function App() {
     }
   };
 
+  async function saveStatsToDB() {
+    try {
+
+      console.log(getPlayerData());
+      // get stats ready
+      // const response = await fetch('/api/leaderboards', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(sessionStats),
+      // });
+
+      // if (!response.ok) {
+      //   throw new Error('Failed to save stats');
+      // }
+
+      // setShowPopup(false);
+    } catch (error) {
+      console.error('Error saving stats:', error);
+    }
+  }
+
+  useEffect(() => {
+    if (game?.gameStatus === "completed") {
+      if (autoSave) {
+        // auto save in batches of 5
+        if (true || game.gameStats.totalGames % 5 === 0) {
+          saveStatsToDB(); // auto save
+        }
+      } else {
+        setShowPopup(true); // show prompt
+      }
+    }
+  }, [game?.gameStatus]);
+
   // Mock or real stand
   const stand = async () => {
-    if (USE_MOCK) {
-      // For mock, dealer draws one card then ends game
-      const updatedGame = { ...game };
-      updatedGame.dealerHand = [...updatedGame.dealerHand, drawRandomCard(), drawRandomCard()];
-      updatedGame.currentTurn = "dealer";
-      updatedGame.status = "player_won"; // or compute outcome
-      setGame(updatedGame);
-      return;
-    }
-
     if (game.gameStatus === "active") {
       const player = game?.players?.find(p => p.type === "player");
       const dealer = game?.players?.find(p => p.type === "dealer");
@@ -269,6 +297,17 @@ export default function App() {
     startGame(); // existing function
   };
 
+  const handleGameCompletion = () => {
+    // Update the game status to 'completed'
+    setGame((prevGame) => ({
+      ...prevGame,
+      gameStatus: 'completed',
+    }));
+
+    // Show the popup
+    setShowPopup(true);
+  };
+
   const initiateLoadingScreen = () => {
     if (loadingInProgress.current) {
       return;
@@ -329,6 +368,17 @@ export default function App() {
         ></div>
       </div>
     );
+  }
+
+
+  const getPlayerData = () => {
+    if (!game) {
+      return null;
+    }
+
+    const player = game.players.find((player) => player.name === playerName);
+    
+    return player;    
   }
 
   const getPlayerStats = (player) => {
@@ -415,19 +465,19 @@ export default function App() {
               </span>
             </div>
 
-            <div className="status-item">
+            {/* <div className="status-item">
               <span className="status-label">Winner</span>
               <span className="status-badge status-winner">
                 {game.gameStats.winner || "—"}
               </span>
-            </div>
+            </div> */}
 
-            <div className="status-item">
+            {/* <div className="status-item">
               <span className="status-label">Reason</span>
               <span className="status-badge status-reason">
                 {game.gameEndStatus || "—"}
               </span>
-            </div>
+            </div> */}
 
             <div className="status-item">
               <span className="status-label">Turn</span>
@@ -435,6 +485,13 @@ export default function App() {
                 {game.turn}
               </span>
             </div>
+            <div className="status-item">
+            <span className="status-label">Auto-Save Stats</span>
+            <ToggleSwitch
+              isOn={autoSave}
+              handleToggle={() => setAutoSave((prev) => !prev)}
+            />
+          </div>
           </div>
           {/* {game.gameStatus === "completed" && ( 
             <div className="winner-banner">
@@ -448,6 +505,9 @@ export default function App() {
               }
             </div>
           )} */}
+
+          
+
           <div className="hands">
             <div className="hand">
             <h2
@@ -485,9 +545,16 @@ export default function App() {
                 )}
                 
                 {game.gameStatus === "completed" && (
-                  <div className="new-game-button">
-                    <button onClick={resetGame}>Start New Game</button>
-                  </div>
+                  <>
+                    <div className="new-game-button">
+                      <button onClick={resetGame}>Start New Game</button>
+                    </div>
+                    <SaveStatsPopup
+                      visible={showPopup}
+                      onSave={saveStatsToDB}
+                      onClose={() => setShowPopup(false)}
+                    />
+                  </>
                 )}
                 {/* <button disabled>Double</button>
                 <button disabled>Split</button> */}

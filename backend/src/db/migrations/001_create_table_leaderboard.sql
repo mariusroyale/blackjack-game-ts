@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS leaderboards_view_day, leaderboards_view_week, leaderboards_view_month;
 DROP TABLE IF EXISTS leaderboards;
 
 -- Create leaderboard table
@@ -15,10 +16,9 @@ CREATE TABLE leaderboards (
 );
 
 -- Index on date_created column for optimization
-CREATE INDEX idx_player_id ON leaderboards(player_id);
-CREATE INDEX idx_date_created ON leaderboards(date_created);
+CREATE INDEX idx_leaderboards_player_id ON leaderboards(player_id);
+CREATE INDEX idx_leaderboards_date_created ON leaderboards(date_created);
 
-DROP VIEW IF EXISTS leaderboards_view_day, leaderboards_view_week, leaderboards_view_month;
 -- Create 7 days view
 CREATE VIEW leaderboards_view_week AS
 SELECT 
@@ -32,7 +32,7 @@ SELECT
     ROUND((SUM(total_wins)::numeric / NULLIF(SUM(total_games), 0)) * 100, 2) AS win_percentage,
     MIN(date_created) AS date_created
 FROM leaderboards
-WHERE date_created >= CURRENT_DATE - INTERVAL '7 days'
+WHERE date_created >= NOW() - INTERVAL '7 days'
 GROUP BY player_id, player_name;
 
 -- Create 30 days view
@@ -48,5 +48,5 @@ SELECT
     ROUND((SUM(total_wins)::numeric / NULLIF(SUM(total_games), 0)) * 100, 2) AS win_percentage,
     MIN(date_created) AS date_created
 FROM leaderboards
-WHERE date_created >= CURRENT_DATE - INTERVAL '30 days'
+WHERE date_created >= NOW() - INTERVAL '30 days'
 GROUP BY player_id, player_name;
