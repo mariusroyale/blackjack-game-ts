@@ -20,7 +20,7 @@ CREATE INDEX idx_leaderboards_player_id ON leaderboards(player_id);
 CREATE INDEX idx_leaderboards_date_created ON leaderboards(date_created);
 
 -- Create 7 days view
-CREATE VIEW leaderboards_view_week AS
+CREATE OR REPLACE VIEW public.leaderboards_view_week WITH (security_invoker = on) AS
 SELECT 
     player_id,
     player_name,
@@ -36,7 +36,7 @@ WHERE date_created >= NOW() - INTERVAL '7 days'
 GROUP BY player_id, player_name;
 
 -- Create 30 days view
-CREATE VIEW leaderboards_view_month AS
+CREATE OR REPLACE VIEW public.leaderboards_view_month WITH (security_invoker = on) AS
 SELECT 
     player_id,
     player_name,
@@ -50,3 +50,30 @@ SELECT
 FROM leaderboards
 WHERE date_created >= NOW() - INTERVAL '30 days'
 GROUP BY player_id, player_name;
+
+ALTER TABLE public.leaderboards ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow authenticated users to select from leaderboards"
+ON public.leaderboards
+FOR SELECT
+TO authenticated
+USING (true);
+
+CREATE POLICY "Allow authenticated users to insert into leaderboards"
+ON public.leaderboards
+FOR INSERT
+TO authenticated
+WITH CHECK (true);
+
+CREATE POLICY "Allow authenticated users to update leaderboards"
+ON public.leaderboards
+FOR UPDATE
+TO authenticated
+USING (true)
+WITH CHECK (true);
+
+CREATE POLICY "Allow authenticated users to delete from leaderboards"
+ON public.leaderboards
+FOR DELETE
+TO authenticated
+USING (true);
