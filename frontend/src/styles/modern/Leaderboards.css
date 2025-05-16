@@ -1,0 +1,103 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+
+/* Global styles */
+/* body {
+  background: radial-gradient(ellipse at center, #222 0%, #000 100%);
+  color: #0f0;
+  font-family: 'Press Start 2P', monospace;
+  padding: 20px;
+  margin: 0;
+  overflow-x: hidden;
+} */
+
+/* Global styles */
+body {
+  background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
+  font-family: 'Inter', sans-serif;
+  color: #f1f1f1;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.25rem;
+  text-align: center;
+  font-weight: 600;
+  background: linear-gradient(to right, #0fffc1, #7e8fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 40px;
+  text-shadow: 0 0 12px rgba(126, 143, 255, 0.3);
+}
+
+/* Table wrapper */
+.table-auto {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Table headers */
+thead {
+  background: rgba(255, 255, 255, 0.08);
+  color: #00ffd0;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+th,
+td {
+  padding: 16px;
+  text-align: center;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.01);
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+/* Frosted-glass effect enhancement */
+th {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Smooth scaling on hover */
+td:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  th, td {
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+}

@@ -1,0 +1,61 @@
+.retro-nav {
+  background: rgba(25, 25, 30, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px 0;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.retro-nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.retro-nav a {
+  color: #ffffffcc;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.retro-nav a::after {
+  content: '';
+  display: block;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(to right, #00f5c9, #5b7cfa);
+  transition: width 0.3s ease;
+  margin-top: 4px;
+}
+
+.retro-nav a:hover {
+  color: #ffffff;
+}
+
+.retro-nav a:hover::after {
+  width: 100%;
+}
+
+.retro-nav li.active a {
+  color: #00f5c9;
+  font-weight: 600;
+}
+
+.retro-nav li.active a::after {
+  width: 100%;
+  background: linear-gradient(to right, #00f5c9, #5b7cfa);
+}

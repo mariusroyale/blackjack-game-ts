@@ -1,0 +1,46 @@
+.retro-nav {
+  background-color: #000;
+  border-bottom: 4px solid #0f0;
+  padding: 12px 0;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  text-align: center;
+  box-shadow: 0 0 10px #0f0;
+  z-index: 999;
+  position: sticky;
+  top: 0;
+}
+
+.retro-nav ul {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.retro-nav a {
+  color: #0f0;
+  text-decoration: none;
+  text-shadow: 0 0 3px #0f0;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.9rem;
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.retro-nav a:hover {
+  color: #ff0;
+  background-color: rgba(0, 255, 0, 0.1);
+  border-color: #ff0;
+  text-shadow: 0 0 5px #ff0;
+}
+
+.retro-nav li.active a {
+  color: #f0f;
+  border-color: #f0f;
+  background-color: rgba(255, 0, 255, 0.1);
+  text-shadow: 0 0 5px #f0f;
+}
