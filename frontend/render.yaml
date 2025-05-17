@@ -6,3 +6,5 @@ services:
     routes:
       - path: /*
         rewrite: /index.html
+      - path: /sitemap.xml
+        serve: /sitemap.xml
