@@ -4,7 +4,7 @@ services:
     env: static
     staticPublishPath: dist
     routes:
-      - path: /*
-        rewrite: /index.html
       - path: /sitemap.xml
         serve: /sitemap.xml
+      - path: /*
+        rewrite: /index.html
