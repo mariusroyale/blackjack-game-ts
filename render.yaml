@@ -6,14 +6,6 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     routes:
-      - path: /sitemap.xml
-        serve: /sitemap.xml
-      - path: /robots.txt
-        serve: /robots.txt
-      - path: /icon.svg
-        serve: /icon.svg
-      - path: /preview.png
-        serve: /preview.png
       - path: /*
         rewrite: /index.html
 
