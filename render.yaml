@@ -1,0 +1,28 @@
+services:
+  - type: static
+    name: blackjack-game-client
+    rootDir: frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - path: /sitemap.xml
+        serve: /sitemap.xml
+      - path: /robots.txt
+        serve: /robots.txt
+      - path: /icon.svg
+        serve: /icon.svg
+      - path: /preview.png
+        serve: /preview.png
+      - path: /*
+        rewrite: /index.html
+
+  - type: web
+    name: blackjack-game-ts
+    rootDir: backend
+    env: node
+    buildCommand: npm install && npm run test && npm run build
+    startCommand: npm start
+    envVars:
+      - fromGroup: marius-vault
+    plan: free
