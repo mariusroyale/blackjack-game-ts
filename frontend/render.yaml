@@ -2,7 +2,7 @@ services:
   - type: static
     name: blackjack-game-client
     env: static
-    staticPublishPath: public
+    staticPublishPath: dist
     routes:
       - path: /*
         rewrite: /index.html
