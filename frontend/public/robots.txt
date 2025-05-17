@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blackjack-game-client.onrender.com/sitemap.xml
