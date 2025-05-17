@@ -1,0 +1,16 @@
+<!-- Ace of Hearts SVG -->
+<svg width="64" height="96" viewBox="0 0 64 96" xmlns="http://www.w3.org/2000/svg">
+  <!-- Card background -->
+  <rect x="2" y="2" width="60" height="92" rx="6" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+  
+  <!-- Top-left "A♥" -->
+  <text x="8" y="20" font-family="sans-serif" font-size="16" fill="red">A♥</text>
+
+  <!-- Bottom-right "♥A" rotated -->
+  <g transform="rotate(180, 32, 48)">
+    <text x="8" y="20" font-family="sans-serif" font-size="16" fill="red">A♥</text>
+  </g>
+
+  <!-- Center heart symbol -->
+  <text x="20" y="60" font-family="sans-serif" font-size="36" fill="red" text-anchor="middle">♥</text>
+</svg>
