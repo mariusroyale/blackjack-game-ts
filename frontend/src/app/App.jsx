@@ -262,7 +262,7 @@ export default function App() {
         }))
       }));
       startGame();
-    }, 800);
+    }, 100);
   };
 
   const renderCards = (hand, fadeOut = false) =>
