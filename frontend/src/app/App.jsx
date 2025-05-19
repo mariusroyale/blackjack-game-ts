@@ -240,7 +240,7 @@ export default function App() {
   };
 
   const resetGame = () => {
-    setFadeOutCards(true);
+    // setFadeOutCards(true);
     
     // Clear winner properly by cloning and updating state
     setGame(prevGame => ({
@@ -249,20 +249,22 @@ export default function App() {
         ...prevGame.gameStats,
         winner: ''
       }
-    }));
+    }))
+
+    // Reset player hands after fadeout
+    setGame(prevGame => ({
+      ...prevGame,
+      players: prevGame.players.map(player => ({
+        ...player,
+        hand: []
+      }))
+    }))
+
+    startGame()
   
-    setTimeout(() => {
-      setFadeOutCards(false);
-      // Reset player hands after fadeout
-      setGame(prevGame => ({
-        ...prevGame,
-        players: prevGame.players.map(player => ({
-          ...player,
-          hand: []
-        }))
-      }));
-      startGame();
-    }, 100);
+    // setTimeout(() => {
+    //   setFadeOutCards(false);
+    // }, 100);
   };
 
   const renderCards = (hand, fadeOut = false) =>
