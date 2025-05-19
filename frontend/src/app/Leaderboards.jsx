@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import '../styles/Leaderboards.css';
+import '../styles/modern/Leaderboards.css';
 import NavBar from './components/NavBar';
 
 export default function Leaderboards() {
@@ -20,39 +20,40 @@ export default function Leaderboards() {
   }, []);
 
   return (
-    <div className="p-6">
+    <div className="leaderboard-wrapper">
       <NavBar />
-      <h1 className="text-xl font-bold mb-4">Weekly Top 50 Players by points</h1>
-      <table className="table-auto w-full border">
-        <thead className="bg-gray-200">
+      <h1>Weekly Top 50 Players by Points</h1>
+      
+      <table className="table-auto">
+        <thead>
           <tr>
-            <th className="px-2 py-1">#</th>
-            <th className="px-2 py-1">Player</th>
-            <th className="px-2 py-1">Points</th>
-            <th className="px-2 py-1">Games</th>
-            <th className="px-2 py-1">Wins</th>
-            <th className="px-2 py-1">Win%</th>
-            <th className="px-2 py-1">Win Streak</th>
+            <th>#</th>
+            <th>Player</th>
+            <th>Points</th>
+            <th>Games</th>
+            <th>Wins</th>
+            <th>Win%</th>
+            <th>Win Streak</th>
           </tr>
         </thead>
         <tbody>
           {players.length === 0 && (
             <tr>
-              <td colSpan="7" className="border px-2 py-1 text-center">
+              <td colSpan="7">
                 No players found :( consider hitting that PLAY button ^_^
               </td>
             </tr>
           )}
 
           {players.map((p, i) => (
-            <tr key={p.playerId} className="text-center">
-              <td className="border px-2 py-1">{i + 1}</td>
-              <td className="border px-2 py-1">{p.playerName}</td>
-              <td className="border px-2 py-1">{p.totalWinPoints}</td>
-              <td className="border px-2 py-1">{p.totalGames}</td>
-              <td className="border px-2 py-1">{p.totalWins}</td>
-              <td className="border px-2 py-1">{p.winPercentage}%</td>
-              <td className="border px-2 py-1">{p.highestWinStreak}</td>
+            <tr key={p.playerId}>
+              <td>{i + 1}</td>
+              <td>{p.playerName}</td>
+              <td>{p.totalWinPoints}</td>
+              <td>{p.totalGames}</td>
+              <td>{p.totalWins}</td>
+              <td>{p.winPercentage}%</td>
+              <td>{p.highestWinStreak}</td>
             </tr>
           ))}
         </tbody>

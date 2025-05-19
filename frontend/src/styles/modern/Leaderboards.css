@@ -1,103 +1,118 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-
-/* Global styles */
-/* body {
-  background: radial-gradient(ellipse at center, #222 0%, #000 100%);
-  color: #0f0;
-  font-family: 'Press Start 2P', monospace;
-  padding: 20px;
-  margin: 0;
-  overflow-x: hidden;
-} */
-
-/* Global styles */
-body {
-  background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
-  font-family: 'Inter', sans-serif;
-  color: #f1f1f1;
-  margin: 0;
-  padding: 40px 20px;
+:root {
+  --bg-glass: rgba(0, 0, 0, 0.3);         /* Darker row background */
+  --bg-header: rgba(255, 255, 255, 0.1);  /* Slightly lighter header for contrast */
+  --bg-hover: rgba(0, 0, 0, 0.45);        /* Darker hover effect */
+  --text-primary: #f1ef56;
+  --text-secondary: #94a3b8;
+  --text-accent: #000000;
+  --text-accent-alt: #000000;
+  --border-color: rgba(255, 255, 255, 0.12);
+  --shadow-color: rgba(253, 253, 253, 0.6);     /* Stronger shadow */
 }
 
 /* Headings */
 h1 {
-  font-size: 2.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5rem;
   text-align: center;
   font-weight: 600;
-  background: linear-gradient(to right, #0fffc1, #7e8fff);
+  background: linear-gradient(to right, var(--text-accent), var(--text-accent-alt));
+  background-clip: text;
   -webkit-background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 40px;
-  text-shadow: 0 0 12px rgba(126, 143, 255, 0.3);
+  margin-bottom: 2.5rem;
+  text-shadow: 0 0 16px rgba(139, 92, 246, 0.2);
 }
 
-/* Table wrapper */
+/* Leaderboard wrapper */
+.leaderboard-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Table */
 .table-auto {
   width: 100%;
-  max-width: 1100px;
-  margin: auto;
-  border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;  /* space between rows */
+  background: transparent;
+  color: var(--text-primary);
 }
 
-/* Table headers */
+/* Table header */
 thead {
-  background: rgba(255, 255, 255, 0.08);
-  color: #00ffd0;
-  font-size: 0.85rem;
+  background: var(--bg-header);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-accent);
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-}
-
-th,
-td {
-  padding: 16px;
-  text-align: center;
-  font-size: 0.95rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-tr:last-child td {
   border-bottom: none;
 }
 
-tr:nth-child(even) {
-  background-color: rgba(255, 255, 255, 0.02);
-}
-
-tr:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.01);
-  transition: 0.3s ease-in-out;
-  cursor: pointer;
-}
-
-/* Frosted-glass effect enhancement */
 th {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 2px solid var(--border-color);
+  border-radius: 12px 12px 0 0; /* Rounded top corners on header */
 }
 
-/* Smooth scaling on hover */
-td:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+/* Table rows */
+tbody tr {
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px var(--shadow-color);
+  transition: background 0.25s ease;
+  display: table-row; /* keep normal table behavior */
 }
 
-/* Responsive adjustments */
+tbody tr:hover {
+  background: var(--bg-hover);
+}
+
+/* Table cells */
+td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: none;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  /* Fix rounding on first and last td of each row */
+  &:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  &:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+}
+
+/* For older CSS without nesting (use this instead) */
+tbody tr td:first-child {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+tbody tr td:last-child {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  th, td {
-    padding: 12px;
-    font-size: 0.85rem;
+  h1 {
+    font-size: 2rem;
   }
 
-  h1 {
-    font-size: 1.75rem;
+  th, td {
+    padding: 0.75rem;
+    font-size: 0.85rem;
   }
 }

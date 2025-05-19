@@ -1,11 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
-import '../../styles/NavBar.css';
+import '../../styles/modern/NavBar.css';
 
 export default function NavBar() {
   const { pathname } = useLocation();
 
   return (
-    <nav className="retro-nav">
+    <nav className="nav-bar">
       <ul>
         <li className={pathname === "/" ? "active" : ""}>
           <Link to="/">🎮 Play</Link>

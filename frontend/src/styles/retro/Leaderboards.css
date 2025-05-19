@@ -1,101 +1,87 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-/* Leaderboards.css */
+/* Modern Leaderboards.css */
 body {
-  background: linear-gradient(180deg, #444444, #000000);
-  color: #00FF00; /* Neon green for retro vibe */
-  font-family: 'Press Start 2P', cursive;
+  background: linear-gradient(to bottom, #1f1f1f, #121212);
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 20px;
 }
 
 h1 {
-  color: #FF6347; /* Tomato red for the title */
+  color: #ffffff;
   text-align: center;
-  font-size: 2rem;
-  text-shadow: 2px 2px 8px rgba(255, 99, 71, 0.6);
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  font-weight: 600;
 }
 
 .table-auto {
-  margin-top: 20px;
+  margin: 0 auto;
   width: 100%;
-  border-collapse: collapse;
-  background: #333;
+  max-width: 900px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
 }
 
 th,
 td {
-  padding: 10px;
+  padding: 16px 20px;
   text-align: center;
-  border: 1px solid #00FF00;
   font-size: 1rem;
-  font-family: 'Press Start 2P', cursive;
+  font-weight: 400;
 }
 
 thead {
-  background: #222;
-  color: #00FF00;
-  text-transform: uppercase;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 tr:nth-child(even) {
-  background-color: #444;
+  background-color: #1c1c1c;
 }
 
 tr:nth-child(odd) {
-  background-color: #222;
+  background-color: #181818;
 }
 
 tr:hover {
-  background-color: #555;
-  transition: background-color 0.3s ease-in-out;
+  background-color: #2c2c2c;
+  transition: background-color 0.3s ease;
   cursor: pointer;
 }
 
 th {
-  text-shadow: 2px 2px 5px rgba(0, 255, 0, 0.8);
+  border-bottom: 1px solid #3a3a3a;
 }
 
-/* Retro Neon Glow Effect */
+td {
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* Utility Classes */
 .text-center {
   text-align: center;
 }
 
 .text-xl {
   font-size: 2rem;
-  text-shadow: 2px 2px 8px rgba(0, 255, 0, 0.8);
 }
 
 .border {
-  border: 1px solid #00FF00;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 8px;
 }
 
-h1, td, th {
-  transition: transform 0.3s ease;
-}
-
-h1:hover {
-  transform: rotate(10deg);
-  text-shadow: 3px 3px 10px rgba(255, 99, 71, 0.6);
-}
-
+/* Subtle hover effect */
 td:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(0, 255, 0, 1);
+  transform: scale(1.02);
+  transition: transform 0.2s ease;
 }
-
-@keyframes neonPulse {
-  0% {
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.6), 0 0 10px rgba(0, 255, 0, 0.8);
-  }
-  50% {
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.9), 0 0 15px rgba(0, 255, 0, 0.9);
-  }
-  100% {
-    text-shadow: 0 0 5px rgba(0, 255, 0, 0.6), 0 0 10px rgba(0, 255, 0, 0.8);
-  }
-}
-
-/* Neon pulse effect on table header */
-thead {
-  animation: neonPulse 2s infinite alternate;
-}
-

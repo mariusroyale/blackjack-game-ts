@@ -1,5 +1,5 @@
 import { React, useEffect } from "react";
-import "../../styles/ToggleSwitch.css";
+import "../../styles/modern/ToggleSwitch.css";
 
 export default function ToggleSwitch({ isOn, handleToggle, persistKey = "autoSaveEnabled" }) {
   // Optional localStorage support

@@ -2,6 +2,9 @@
 
 [![Backend Tests](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/backend-tests.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/backend-tests.yml) [![Frontend Tests](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/frontend-tests.yml/badge.svg)](https://github.com/mariusroyale/blackjack-game-ts/actions/workflows/frontend-tests.yml)
 
+### May 19, 2025
+- 🎨 Dropped retro theme and introduced modern theme
+- 🔄 Improved layout so it is mobile friendly
 
 ### May 13, 2025
 - 🎴 Major update version 2.0 of the game brings lots of goodies

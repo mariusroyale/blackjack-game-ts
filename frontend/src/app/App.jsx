@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import "../styles/App.css";
-import '../styles/RetroButton.css';
+import "../styles/modern/App.css";
 import { getRandomDealerName } from '../shared/utils/getRandomDealerName';
 import SaveStatsPopup from './components/SaveStatsPopUp';
 import ToggleSwitch from "./components/ToggleSwitch";
@@ -432,34 +431,31 @@ export default function App() {
   };
 
   return (
+    <>
+    <NavBar />
     <div className="app">
       <ThemeSelector />
-      <NavBar />
-      
       <h1>
-        <span style={{ color: "black" }}>♠</span> Blackjack
+        <span style={{ color: "black" }}>♠ Blackjack</span> 
       </h1>
 
       {!game && (
         <div className="player-name-entry">
-          <h3>Enter your name to start</h3>
-          
-          <input
-            type="text"
-            value={playerName}
-            onChange={(e) => {
-              setPlayerName(e.target.value);
-              if (nameError) setNameError(false);
-            }}
-            placeholder="Your name"
-            className={nameError ? "input-error" : ""}
-          />
-          
-          <button className="retro-button" onClick={handleStartGame}>Start Game</button>
-        
-          {nameError && (
-            <div className="error-message">Your name is mandatory</div>
-          )}
+          <div className="name-input-wrapper">
+            <input
+              type="text"
+              value={playerName}
+              onChange={(e) => {
+                setPlayerName(e.target.value);
+                if (nameError) setNameError(false);
+              }}
+              placeholder="Enter your name to start"
+              className={nameError ? "input-error" : ""}
+            />
+            <button className="card-logo-button" onClick={handleStartGame}>
+              🂡 Start
+            </button>
+          </div>
         </div>
       )}
 
@@ -493,25 +489,25 @@ export default function App() {
             </div> */}
 
             <div className="status-item">
-              <span className="status-label">Reason</span>
+              <span className="status-label">State</span>
               <span className="status-badge status-reason">
                 {game.gameEndStatus || "—"}
               </span>
             </div>
 
-            <div className="status-item">
+            {/* <div className="status-item">
               <span className="status-label">Turn</span>
               <span className="status-badge status-turn">
                 {game.turn}
               </span>
-            </div>
+            </div> */}
             <div className="status-item">
-            <span className="status-label">Auto-Save Stats</span>
-            <ToggleSwitch
-              isOn={autoSave}
-              handleToggle={() => setAutoSave((prev) => !prev)}
-            />
-          </div>
+              <span className="status-label">Auto-Save Stats</span>
+              <ToggleSwitch
+                isOn={autoSave}
+                handleToggle={() => setAutoSave((prev) => !prev)}
+              />
+            </div>
           </div>
           {/* {game.gameStatus === "completed" && ( 
             <div className="winner-banner">
@@ -537,7 +533,9 @@ export default function App() {
                   : ""
               }
             >
-              {game.players[1].name}
+              {game.turn === "dealer" && game.gameStatus !== "completed" && (
+                <span className="turn-arrow">➤ </span>
+              )}{game.players[1].name}
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[1].type && " Wins!🏆"}
             </h2>
               <div className="cards">{renderCards(game.players[1].hand, fadeOutCards)}</div>
@@ -551,7 +549,9 @@ export default function App() {
                   : ""
               }
             >
-              {game.players[0].name}
+              {game.turn === "player" && game.gameStatus !== "completed" && (
+                <span className="turn-arrow">➤ </span>
+              )}{game.players[0].name}
               {game.gameStatus === "completed" && game.gameStats.winner === game.players[0].type && " Wins! 🏆"}
             </h2>
               <div className="cards">{renderCards(game.players[0].hand, fadeOutCards)}</div>
@@ -585,5 +585,6 @@ export default function App() {
         </div>
       )}
     </div>
+    </>
   );
 }
